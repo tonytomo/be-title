@@ -1,13 +1,5 @@
 import { minorWords } from "./config.js";
 
-export interface CaseConverterProps {
-    from?: number;
-    num?: number;
-    fromText?: string;
-    toText?: string;
-    exactText?: string;
-}
-
 export class Title {
     private _text: string;
 

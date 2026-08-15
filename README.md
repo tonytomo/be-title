@@ -1,44 +1,95 @@
 # be-title
 
-Converts text into other string cases.
+A lightweight TypeScript/JavaScript library to convert strings into different casing styles and generate step-by-step text animation frames.
 
-## Basic Cases
+## Installation
 
-- camelCase: The first word starts lowercase, and every following word starts uppercase.
-- PascalCase: Every word starts with an uppercase letter, including the first word.
-- kebab-case: Words are all lowercase and separated by hyphens (also known as slug case or dash-case).
-- snake_case: Words are all lowercase and separated by underscores.
-- UPPER_SNAKE_CASE: Words are all uppercase and separated by underscores (often called CONSTANT_CASE).
-- Train-Case: Words are separated by hyphens, and every word starts with an uppercase letter. [3, 4, 5, 6, 7]
+```bash
+npm install be-title
+```
 
-## Database Cases
+## Quick Start
 
-These are specifically optimized for data storage and query language readability.
+```typescript
+import { Title } from "be-title";
 
-- snake_case: The most common default standard for SQL database columns and table names.
-- UPPERCASE: Used in some legacy databases or for SQL keywords like SELECT and WHERE.
-- lowercase: Used in databases to avoid case-sensitivity bugs across different operating systems. [8]
+const title = new Title("the lord of the rings");
 
-## Typography and Text Cases
+console.log(title.toTitle()); // "The Lord of the Rings"
+console.log(title.toCamelCase()); // "theLordOfTheRings"
+console.log(title.toKebabCase()); // "the-lord-of-the-rings"
+```
 
-These are standard casing styles used for human-readable content in documents, apps, and articles.
+---
 
-- Sentence case: Only the first letter of the first word is uppercase (along with proper nouns).
-- Title Case: The first letter of every major word is uppercase.
-- Capital Case: The first letter of every single word is uppercase, including minor words like "and" or "the".
-- Small Caps: Lowercase letters look like smaller versions of uppercase letters. [9, 10, 11, 12, 13]
+## API Reference
 
-## Internet Culture Cases
+### Initializing
 
-These formats arose from online memes, security practices, and gaming.
+```typescript
+const title = new Title("hello world");
+```
 
-- AlTeRnAtInG cAsE: Letters alternate between uppercase and lowercase to mock or mimic a sarcastic tone.
-- sPoNgEbOb CaSe: Letters are randomized between upper and lowercase for extreme sarcasm.
-- StudlyCaps: Capitalization is randomized or follows a hidden pattern, often used in 90s gaming handles. [14, 15]
+#### Get / Set Raw Text
+You can access or update the internal text value anytime:
 
-## Animating Utils
+```typescript
+console.log(title.text); // "hello world"
 
-- Per Letter: A list of the text from first letter to full text arranged orderly, can be reversed.
-- Per Word: A list of the text from first word to full text arranged orderly, can also be reversed.
+title.text = "new text here";
+console.log(title.toTitle()); // "New Text Here"
+```
 
-All function must have index input `from` and `num`
+---
+
+### Case Conversions
+
+Assuming `const title = new Title("the lord of the rings");`:
+
+| Method | Output | Description |
+| :--- | :--- | :--- |
+| `toUpper()` | `"THE LORD OF THE RINGS"` | Converts all characters to uppercase. |
+| `toLower()` | `"the lord of the rings"` | Converts all characters to lowercase. |
+| `toSentence()` | `"The lord of the rings"` | Capitalizes only the first letter of the sentence. |
+| `toTitle()` | `"The Lord of the Rings"` | Capitalizes major words while keeping minor words (articles, conjunctions, short prepositions) lowercase. |
+| `toCapital()` | `"The Lord Of The Rings"` | Capitalizes the first letter of every single word. |
+| `toCamelCase()` | `"theLordOfTheRings"` | First word is lowercase, subsequent words start with uppercase. |
+| `toPascalCase()` | `"TheLordOfTheRings"` | Every word starts with an uppercase letter without separators. |
+| `toSnakeCase()` | `"the_lord_of_the_rings"` | Lowercase words separated by underscores. |
+| `toKebabCase()` | `"the-lord-of-the-rings"` | Lowercase words separated by hyphens (slug format). |
+| `toTrainCase()` | `"The-Lord-Of-The-Rings"` | Capitalized words separated by hyphens. |
+| `toConstantCase()` | `"THE_LORD_OF_THE_RINGS"` | Uppercase words separated by underscores. |
+| `toAlternating()` | `"ThE LoRd Of ThE rInGs"` | Alternates characters between uppercase and lowercase. |
+| `toSpongeBob()` | `"ThE lOrD oF tHe RiNgS"` | Randomizes uppercase and lowercase letters for sarcasm/mocking tone. |
+
+---
+
+### Text Animation Helpers
+
+Generates arrays of progressive string frames suitable for typing effects, ticker animations, or terminal loaders.
+
+#### `animatePerLetter(options?)`
+Splits text letter-by-letter.
+
+| Options | Example (`"hello"`) | Result |
+| :--- | :--- | :--- |
+| `{}` (default) | `title.animatePerLetter()` | `["h", "he", "hel", "hell", "hello"]` |
+| `{ out: true }` | `title.animatePerLetter({ out: true })` | `["hello", "hell", "hel", "he", "h"]` |
+| `{ reversed: true }` | `title.animatePerLetter({ reversed: true })` | `["o", "lo", "llo", "ello", "hello"]` |
+| `{ reversed: true, out: true }` | `title.animatePerLetter({ reversed: true, out: true })` | `["hello", "ello", "llo", "lo", "o"]` |
+
+#### `animatePerWord(options?)`
+Splits text word-by-word.
+
+| Options | Example (`"hello world"`) | Result |
+| :--- | :--- | :--- |
+| `{}` (default) | `title.animatePerWord()` | `["hello", "hello world"]` |
+| `{ out: true }` | `title.animatePerWord({ out: true })` | `["hello world", "world"]` |
+| `{ reversed: true }` | `title.animatePerWord({ reversed: true })` | `["world", "hello world"]` |
+| `{ reversed: true, out: true }` | `title.animatePerWord({ reversed: true, out: true })` | `["world", "hello world"]` |
+
+---
+
+## License
+
+[MIT](LICENCE.md)
