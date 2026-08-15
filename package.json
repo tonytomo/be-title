@@ -1,0 +1,29 @@
+{
+  "name": "be-title",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Converts title text into other style cases",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "npx serve .",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^7.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonytomo/be-title.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tonytomo/be-title/issues"
+  },
+  "homepage": "https://github.com/tonytomo/be-title#readme"
+}
