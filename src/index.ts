@@ -187,11 +187,11 @@ export class Title {
             return text.slice(index, maxLength - 1).join('');
         });
 
-        if (reversed) return text.reverse().map((_, index) => {
+        if (reversed) return text.map((_, index) => {
             return text.slice(maxLength - index).join('');
         });
 
-        if (out) return text.reverse().map((_, index) => {
+        if (out) return text.map((_, index) => {
             return text.slice(0, maxLength - index).join('');
         });
 
@@ -202,18 +202,31 @@ export class Title {
 
     /**
      * @description A list of the text from first word to full text arranged orderly, can be reversed.
+     * @param {{ reversed: boolean, out: boolean }} options - Options to reverse the text or not.
      * @returns {string[]}
      * @example "hello world" => ["hello", "hello world"]
+     * @example "hello world" with out => ["hello world", "world"]
+     * @example "hello world" with reversed => ["world", "hello world"]
+     * @example "hello world" with reversed and out => ["world", "hello world"]
      */
-    animatePerWord({ out }: { out?: boolean }): string[] {
-        const text = this._text.split(' ');
+    animatePerWord({ reversed, out }: { reversed?: boolean, out?: boolean }): string[] {
+        const words = this._text.split(' ');
+        const maxLength = words.length;
 
-        if (out) return text.map((_, index) => {
-            return text.slice(index + 1).join(' ');
+        if (reversed && out) return words.map((_, index) => {
+            return words.slice(index, maxLength - 1).join(' ');
         });
 
-        return text.map((_, index) => {
-            return text.slice(0, index + 1).join(' ');
+        if (reversed) return words.map((_, index) => {
+            return words.slice(maxLength - index).join(' ');
+        });
+
+        if (out) return words.map((_, index) => {
+            return words.slice(0, maxLength - index).join(' ');
+        });
+
+        return words.map((_, index) => {
+            return words.slice(0, index + 1).join(' ');
         });
     }
 }
