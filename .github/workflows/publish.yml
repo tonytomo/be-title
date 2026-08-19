@@ -9,7 +9,8 @@ on:
         type: string
 
 permissions:
-  contents: write
+  id-token: write # Required for OIDC
+  contents: read
 
 jobs:
   build-and-release:
