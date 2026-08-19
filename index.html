@@ -18,25 +18,25 @@
         }
 
         body {
-            background: linear-gradient(to bottom right, #4b6cb7, #182848);
+            background: linear-gradient(to bottom right, #324779, #2a6b6c);
         }
 
         main {
             font-family: "JetBrains Mono", monospace;
             font-optical-sizing: auto;
 
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
 
             margin: 0 auto;
             padding: 2rem;
 
-            max-width: 40rem;
+            max-width: 64rem;
         }
 
         hgroup {
-            background-color: #ffffff50;
+            background-color: #ffffff30;
             backdrop-filter: blur(5px);
             padding: 1rem;
             border-radius: 0.5rem;
@@ -44,6 +44,17 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
         }
 
         h1 {
@@ -57,11 +68,17 @@
 
         h3 {
             font-size: 1.5rem;
+            color: #000;
+        }
+
+        p {
+            color: #fff;
         }
 
         code {
             display: block;
-            background-color: #e5e5e5;
+            background-color: #1f1f2d;
+            color: #fff;
             padding: 0.5rem;
             border-radius: 0.5rem;
 
@@ -69,6 +86,22 @@
             overflow-x: auto;
 
             user-select: all;
+        }
+
+        code>span.type {
+            color: #6969bb;
+        }
+
+        code>span.var {
+            color: #598fe5;
+        }
+
+        code>span.func {
+            color: #ffc739;
+        }
+
+        code>span.obj {
+            color: #3a996e;
         }
 
         .flex {
@@ -89,117 +122,104 @@
 <body>
     <main>
         <h1 style="color: white;">Be Title Demo</h1>
-        <p style="color: white;">A title class that converts text to different cases.</p>
+        <p style="color: white;">
+            Easy way to convert text to different cases and animate them.
+        </p>
 
         <hgroup>
             <h2>Installation</h2>
-            <code>npm i be-title</code>
+            <code><span class="var">npm</span> i be-title</code>
+            <div class="flex-start">
+                <p>Open links:</p>
+                <a href="https://github.com/tonytomo/be-title" target="_blank">Github</a>
+                <a href="https://www.npmjs.com/package/be-title" target="_blank">NPM</a>
+            </div>
         </hgroup>
 
         <hgroup>
-            <div class="flex">
-                <h2>Regular</h2>
-                <code>const text = new Title("the lord of the rings");</code>
-            </div>
+            <h2>Regular</h2>
             <p id="regular"></p>
+            <code><span class="var">const</span> text = <span class="type">new</span> <span class="obj">Title</span>("the lord of the rings");</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Animation</h2>
-                <code>text.animate()</code>
-            </div>
-            <p id="animate"></p>
+            <h2>Animation In and Out</h2>
+            <p id="inout"></p>
+            <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'inout' })</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Uppercase</h2>
-                <code>text.toUpper()</code>
-            </div>
+            <h2>Animation Scramble</h2>
+            <p id="scramble"></p>
+            <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'scramble' })</code>
+        </hgroup>
+        <hgroup>
+            <h2>Animation Cycle</h2>
+            <p id="cycle"></p>
+            <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'cycle' })</code>
+        </hgroup>
+        <hgroup>
+            <h2>Uppercase</h2>
             <p id="uppercase"></p>
+            <code><span class="var">text</span>.<span class="func">upper</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Lowercase</h2>
-                <code>text.toLower()</code>
-            </div>
+            <h2>Lowercase</h2>
             <p id="lowercase"></p>
+            <code><span class="var">text</span>.<span class="func">lower</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Sentence Case</h2>
-                <code>text.toSentence()</code>
-            </div>
+            <h2>Sentence Case</h2>
             <p id="sentence"></p>
+            <code><span class="var">text</span>.<span class="func">sentence</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Title Case</h2>
-                <code>text.toTitle()</code>
-            </div>
+            <h2>Title Case</h2>
             <p id="title"></p>
+            <code><span class="var">text</span>.<span class="func">title</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Capital Case</h2>
-                <code>text.toCapital()</code>
-            </div>
+            <h2>Capital Case</h2>
             <p id="capital"></p>
+            <code><span class="var">text</span>.<span class="func">capital</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Alternating Case</h2>
-                <code>text.toAlternating()</code>
-            </div>
+            <h2>Alternating Case</h2>
             <p id="alternating"></p>
+            <code><span class="var">text</span>.<span class="func">alternating</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Spongebob Case</h2>
-                <code>text.toSpongebob()</code>
-            </div>
+            <h2>Spongebob Case</h2>
             <p id="spongebob"></p>
+            <code><span class="var">text</span>.<span class="func">spongebob</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Snake Case</h2>
-                <code>text.toSnakeCase()</code>
-            </div>
+            <h2>Snake Case</h2>
             <p id="snakecase"></p>
+            <code><span class="var">text</span>.<span class="func">snake</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Kebab Case</h2>
-                <code>text.toKebabCase()</code>
-            </div>
+            <h2>Kebab Case</h2>
             <p id="kebabcase"></p>
+            <code><span class="var">text</span>.<span class="func">kebab</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Camel Case</h2>
-                <code>text.toCamelCase()</code>
-            </div>
+            <h2>Camel Case</h2>
             <p id="camelcase"></p>
+            <code><span class="var">text</span>.<span class="func">camel</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Pascal Case</h2>
-                <code>text.toPascalCase()</code>
-            </div>
+            <h2>Pascal Case</h2>
             <p id="pascalcase"></p>
+            <code><span class="var">text</span>.<span class="func">pascal</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Train Case</h2>
-                <code>text.toTrainCase()</code>
-            </div>
+            <h2>Train Case</h2>
             <p id="traincase"></p>
+            <code><span class="var">text</span>.<span class="func">train</span>()</code>
         </hgroup>
         <hgroup>
-            <div class="flex">
-                <h2>Constant Case</h2>
-                <code>text.toConstantCase()</code>
-            </div>
+            <h2>Constant Case</h2>
             <p id="constantcase"></p>
+            <code><span class="var">text</span>.<span class="func">constant</span>()</code>
         </hgroup>
     </main>
 
@@ -209,7 +229,6 @@
         const text = new Title("the lord of the rings");
 
         const regularWrapper = document.getElementById("regular");
-        const animateWrapper = document.getElementById("animate");
         const uppercaseWrapper = document.getElementById("uppercase");
         const lowercaseWrapper = document.getElementById("lowercase");
         const camelcaseWrapper = document.getElementById("camelcase");
@@ -239,10 +258,28 @@
         trainWrapper.innerHTML = `<h3>${text.train()}</h3>`;
         constantWrapper.innerHTML = `<h3>${text.constant()}</h3>`;
 
+        const inoutWrapper = document.getElementById("inout");
+        const scrambleWrapper = document.getElementById("scramble");
+        const cycleWrapper = document.getElementById("cycle");
+
         text.play({
             speedMs: 100,
             loop: true,
-            onTick: (frame) => (animateWrapper.innerHTML = `<h3>${frame}</h3>`),
+            onTick: (frame) => (inoutWrapper.innerHTML = `<h3>${frame}</h3>`),
+            onComplete: () => console.log('Animation completed'),
+            animation: 'inout'
+        });
+        text.play({
+            speedMs: 100,
+            loop: true,
+            onTick: (frame) => (scrambleWrapper.innerHTML = `<h3>${frame}</h3>`),
+            onComplete: () => console.log('Animation completed'),
+            animation: 'scramble'
+        });
+        text.play({
+            speedMs: 100,
+            loop: true,
+            onTick: (frame) => (cycleWrapper.innerHTML = `<h3>${frame}</h3>`),
             onComplete: () => console.log('Animation completed'),
             animation: 'cycle'
         });
