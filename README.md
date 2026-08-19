@@ -1,6 +1,7 @@
 # be-title
 
 [![npm version](https://img.shields.io/npm/v/be-title.svg)](https://www.npmjs.com/package/be-title)
+[![last commit](https://img.shields.io/github/last-commit/tonytomo/be-title.svg?label=last%20commit)](https://github.com/tonytomo/be-title/commits/main)
 [![license](https://img.shields.io/npm/l/be-title.svg)](LICENSE.md)
 
 A lightweight TypeScript/JavaScript library to convert strings into different casing styles and generate text animation frames.
