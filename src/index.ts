@@ -1,6 +1,6 @@
 import { minorWords } from "./config.js";
-import { AnimationController, CycleOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo } from "./types.js";
-import { generateCycleFrames, generateInOutFrames, generateScrambleFrames, hideText, truncateText } from "./utils.js";
+import { AnimationController, CycleOptions, GradientOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo } from "./types.js";
+import { generateCycleFrames, generateInOutFrames, generateScrambleFrames, hideText, toGradient, truncateText } from "./utils.js";
 
 export class Title {
     text: string;
@@ -220,6 +220,16 @@ export class Title {
      */
     cycle(options: CycleOptions = {}): string[] {
         return generateCycleFrames(this.text, options);
+    }
+
+    /**
+     * @description Converts the text to a gradient.
+     * @param {GradientOptions} options - Options to control the gradient.
+     * @returns {string}
+     * @example "the lord of the rings" => "\u001b[38;2;118;183;166mthe\u001b[0m \u001b[38;2;118;183;171mlord\u001b[0m ..."
+     */
+    gradient(options: GradientOptions): string {
+        return toGradient(this.text, options);
     }
 
     /**

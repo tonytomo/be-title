@@ -38,3 +38,9 @@ export interface CycleOptions {
     cursor?: string;
     blinkSpeed?: number;
 }
+
+export interface GradientOptions {
+    fromColor: [number, number, number]; // [R, G, B]
+    toColor: [number, number, number];   // [R, G, B]
+    format?: 'ansi' | 'html';
+}

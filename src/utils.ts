@@ -1,4 +1,4 @@
-import { CycleOptions, InOutOptions, ScrambleOptions } from "./types";
+import { CycleOptions, GradientOptions, InOutOptions, ScrambleOptions } from "./types";
 
 export function truncateText(text: string, options?: { max?: number, suffix?: string }): string {
     const max = options?.max || 15;
@@ -150,4 +150,25 @@ export function generateCycleFrames(
     });
 
     return frames;
+}
+
+export function toGradient(text: string, options: GradientOptions): string {
+    const { fromColor, toColor, format = 'ansi' } = options;
+    const len = text.length;
+    if (len === 0) return '';
+
+    return text
+        .split('')
+        .map((char, i) => {
+            if (char === ' ') return char;
+            const factor = len > 1 ? i / (len - 1) : 0;
+            const r = Math.round(fromColor[0] + factor * (toColor[0] - fromColor[0]));
+            const g = Math.round(fromColor[1] + factor * (toColor[1] - fromColor[1]));
+            const b = Math.round(fromColor[2] + factor * (toColor[2] - fromColor[2]));
+
+            return format === 'ansi'
+                ? `\x1b[38;2;${r};${g};${b}m${char}\x1b[0m`
+                : `<span style="color: rgb(${r}, ${g}, ${b})">${char}</span>`;
+        })
+        .join('');
 }
