@@ -244,10 +244,16 @@
             loop: true,
             onTick: (frame) => (animateWrapper.innerHTML = `<h3>${frame}</h3>`),
             onComplete: () => console.log('Animation completed'),
-            options: {
-                type: 'letter',
-                reversed: true,
-                out: true,
+            // animation: 'animate',
+            // animationOptions: {
+            //     type: 'letter',
+            //     reversed: false,
+            //     out: false,
+            // }
+            animation: 'scramble',
+            animationOptions: {
+                scrambleChars: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                iterationsPerChar: 1
             }
         });
     </script>

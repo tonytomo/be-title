@@ -3,7 +3,8 @@ export interface PlayOptions {
     loop?: boolean;
     onTick?: (frame: string) => void;
     onComplete?: () => void;
-    options?: AnimateOptions
+    animation?: 'animate' | 'scramble';
+    animationOptions?: InOutOptions | ScrambleOptions
 }
 
 export interface AnimationController {
@@ -13,8 +14,13 @@ export interface AnimationController {
     readonly isRunning: boolean;
 }
 
-export interface AnimateOptions {
+export interface InOutOptions {
     type?: 'letter' | 'word';
     reversed?: boolean;
     out?: boolean;
+}
+
+export interface ScrambleOptions {
+    scrambleChars?: string;
+    iterationsPerChar?: number;
 }

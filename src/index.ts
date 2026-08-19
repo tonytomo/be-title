@@ -1,5 +1,5 @@
 import { minorWords } from "./config.js";
-import { AnimateOptions, AnimationController, PlayOptions } from "./types.js";
+import { AnimationController, InOutOptions, PlayOptions, ScrambleOptions } from "./types.js";
 
 export class Title {
     text: string;
@@ -157,61 +157,59 @@ export class Title {
 
     /**
      * @description Creates a list of the text from first letter to full text arranged orderly, can be reversed and out.
-     * @param {AnimateOptions} options - Options to control the animation.
+     * @param {InOutOptions} options - Options to control the animation.
      * @returns {string[]}
-     * @example "hello" => ["h", "he", "hel", "hell", "hello"]
-     * @example "hello" with reversed => ["o", "lo", "llo", "ello", "hello"]
-     * @example "hello" with out => ["hello", "hell", "hel", "he", "h"]
-     * @example "hello" with reversed and out => ["hello", "ello", "llo", "lo", "o"]
      */
-    animate(options: AnimateOptions = { type: 'letter', reversed: false, out: false }): string[] {
+    inout(options: InOutOptions = {}): string[] {
+        const { type = 'letter', reversed = false, out = false } = options;
+
         const chars = this.text.split("");
         const words = this.text.split(" ");
         const frames: string[] = [];
 
-        if (options.out && options.reversed) {
-            if (options.type === 'letter') {
+        if (out && reversed) {
+            if (type === 'letter') {
                 for (let i = 0; i <= chars.length; i++) {
                     const text = chars.slice(i)
                     frames.push(text.join(""));
                 }
-            } else if (options.type === 'word') {
+            } else if (type === 'word') {
                 for (let i = 0; i <= words.length; i++) {
                     const text = words.slice(i)
                     frames.push(text.join(" "));
                 }
             }
-        } else if (options.reversed) {
-            if (options.type === 'letter') {
+        } else if (reversed) {
+            if (type === 'letter') {
                 for (let i = chars.length; i >= 0; i--) {
                     const text = chars.slice(i);
                     frames.push(text.join(""));
                 }
-            } else if (options.type === 'word') {
+            } else if (type === 'word') {
                 for (let i = words.length; i >= 0; i--) {
                     const text = words.slice(i);
                     frames.push(text.join(" "));
                 }
             }
-        } else if (options.out) {
-            if (options.type === 'letter') {
+        } else if (out) {
+            if (type === 'letter') {
                 for (let i = chars.length; i >= 0; i--) {
                     const text = chars.slice(0, i);
                     frames.push(text.join(""));
                 }
-            } else if (options.type === 'word') {
+            } else if (type === 'word') {
                 for (let i = words.length; i >= 0; i--) {
                     const text = words.slice(0, i);
                     frames.push(text.join(" "));
                 }
             }
         } else {
-            if (options.type === 'letter') {
+            if (type === 'letter') {
                 for (let i = 0; i <= chars.length; i++) {
                     const text = chars.slice(0, i)
                     frames.push(text.join(""));
                 }
-            } else if (options.type === 'word') {
+            } else if (type === 'word') {
                 for (let i = 0; i <= words.length; i++) {
                     const text = words.slice(0, i)
                     frames.push(text.join(" "));
@@ -222,14 +220,59 @@ export class Title {
     }
 
     /**
+     * @description Scrambles the text.
+     * @param {ScrambleOptions} options - Options to control the scramble.
+     * @returns {string[]}
+     */
+    scramble(options: ScrambleOptions = {}) {
+        const {
+            scrambleChars = "!@#$%^&*()_+-=[]{}|;:,.<>/?0123456789",
+            iterationsPerChar = 3,
+        } = options;
+
+        const totalLength = this.text.length;
+        const totalFrames = totalLength * iterationsPerChar;
+        const frames: string[] = [];
+
+        const getRandomChar = () =>
+            scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+
+        for (let frameIdx = 0; frameIdx <= totalFrames; frameIdx++) {
+            const revealedCount = Math.floor(frameIdx / iterationsPerChar);
+            let frame = "";
+
+            for (let i = 0; i < totalLength; i++) {
+                if (i < revealedCount) {
+                    frame += this.text[i];
+                } else if (this.text[i] === " ") {
+                    frame += " ";
+                } else {
+                    frame += getRandomChar();
+                }
+            }
+            frames.push(frame);
+        }
+
+        frames.push(this.text);
+        return frames;
+    }
+
+    /**
      * @description Animates the text.
      * @param {PlayOptions} options - Options to control the animation.
      * @returns {AnimationController}
      * @example
      */
     play(options: PlayOptions = {}): AnimationController {
-        const { speedMs = 60, loop = false, onTick, onComplete } = options;
-        const frames = this.animate(options.options);
+        const {
+            speedMs = 60,
+            loop = false,
+            onTick,
+            onComplete,
+            animation = 'animate',
+            animationOptions
+        } = options;
+        const frames = animation === 'animate' ? this.inout(animationOptions as InOutOptions) : this.scramble(animationOptions as ScrambleOptions);
 
         let currentIndex = 0;
         let timerId: ReturnType<typeof setTimeout> | null = null;
