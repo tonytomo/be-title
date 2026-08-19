@@ -4,7 +4,7 @@ export function generateInOutFrames(
     targetText: string,
     options: InOutOptions = {}
 ): string[] {
-    const { type = 'letter', reversed = false, out = false } = options;
+    const { type = 'letter', reversed = false, out = false, cursor = '', blinkSpeed = 100 } = options;
 
     const chars = targetText.split("");
     const words = targetText.split(" ");
@@ -106,7 +106,7 @@ export function generateCycleFrames(
     text: string,
     options: CycleOptions = {}
 ): string[] {
-    const { pauseFrames = 10, cursor = '' } = options;
+    const { pauseFrames = 10, cursor = '', blinkSpeed = 2 } = options;
     const frames: string[] = [];
     const words = text.split(" ");
 
@@ -118,7 +118,8 @@ export function generateCycleFrames(
 
         // 2. Pause on complete word
         for (let p = 0; p < pauseFrames; p++) {
-            frames.push(word + cursor);
+            const showCursor = Math.floor(p / Math.max(1, blinkSpeed)) % 2 === 0;
+            frames.push(word + (showCursor ? cursor : ''));
         }
 
         // 3. Backspace / Delete

@@ -1,12 +1,25 @@
 import { minorWords } from "./config.js";
-import { AnimationController, CycleOptions, InOutOptions, PlayOptions, ScrambleOptions } from "./types.js";
+import { AnimationController, CycleOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo } from "./types.js";
 import { generateCycleFrames, generateInOutFrames, generateScrambleFrames } from "./utils.js";
 
 export class Title {
     text: string;
 
     constructor(text: string) {
-        this.text = text;
+        this.text = text.trim();
+    }
+
+    /**
+     * @description Get information about the text.
+     * @returns {TextInfo}
+     */
+    info(): TextInfo {
+        const words = this.text.split(' ');
+        return {
+            chars: this.text.length,
+            words: words.length,
+            hasMinorWords: words.some((word) => minorWords.includes(word)),
+        }
     }
 
     /**

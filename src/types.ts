@@ -1,3 +1,9 @@
+export interface TextInfo {
+    chars: number;
+    words: number;
+    hasMinorWords: boolean;
+}
+
 export interface PlayOptions {
     speedMs?: number;
     loop?: boolean;
@@ -18,6 +24,8 @@ export interface InOutOptions {
     type?: 'letter' | 'word';
     reversed?: boolean;
     out?: boolean;
+    cursor?: string;
+    blinkSpeed?: number;
 }
 
 export interface ScrambleOptions {
@@ -28,4 +36,5 @@ export interface ScrambleOptions {
 export interface CycleOptions {
     pauseFrames?: number;
     cursor?: string;
+    blinkSpeed?: number;
 }
