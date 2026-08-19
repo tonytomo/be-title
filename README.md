@@ -47,6 +47,30 @@ console.log(title.toTitle()); // "New Text Here"
 
 ---
 
+### Utilities
+
+#### truncateText(text, options)
+
+Truncates a string to a specified maximum length, optionally appending a suffix.
+
+```typescript
+truncateText("hello world"); // "hello world"
+truncateText("hello world", { max: 5 }); // "hello..."
+truncateText("hello world", { max: 5, suffix: "->" }); // "hello->"
+```
+
+#### hideText(text, options)
+
+Replaces a portion of the string with hide characters.
+
+```typescript
+hideText("hello world"); // "hello*****d"
+hideText("hello world", { from: 5, numChar: 3 }); // "hello***rld"
+hideText("hello world", { from: 5, numChar: 5, hideChar: "*" }); // "hello*****"
+```
+
+---
+
 ### Case Conversions
 
 Assuming `const title = new Title("the lord of the rings");`:
