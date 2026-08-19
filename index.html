@@ -18,8 +18,7 @@
         }
 
         body {
-            background-color: #f0f0f0;
-            color: #232323;
+            background: linear-gradient(to bottom right, #4b6cb7, #182848);
         }
 
         main {
@@ -37,15 +36,14 @@
         }
 
         hgroup {
-            background-color: #ffffff;
+            background-color: #ffffff50;
+            backdrop-filter: blur(5px);
             padding: 1rem;
             border-radius: 0.5rem;
 
             display: flex;
             flex-direction: column;
             gap: 1rem;
-
-            height: 8rem;
         }
 
         h1 {
@@ -54,7 +52,7 @@
 
         h2 {
             font-size: 0.9rem;
-            color: #7f7f7f;
+            color: #fff;
         }
 
         h3 {
@@ -90,8 +88,8 @@
 
 <body>
     <main>
-        <h1>Be Title</h1>
-        <p>A title class that converts text to different cases.</p>
+        <h1 style="color: white;">Be Title Demo</h1>
+        <p style="color: white;">A title class that converts text to different cases.</p>
 
         <hgroup>
             <h2>Installation</h2>
@@ -107,6 +105,13 @@
         </hgroup>
         <hgroup>
             <div class="flex">
+                <h2>Animation</h2>
+                <code>text.animate()</code>
+            </div>
+            <p id="animate"></p>
+        </hgroup>
+        <hgroup>
+            <div class="flex">
                 <h2>Uppercase</h2>
                 <code>text.toUpper()</code>
             </div>
@@ -118,34 +123,6 @@
                 <code>text.toLower()</code>
             </div>
             <p id="lowercase"></p>
-        </hgroup>
-        <hgroup>
-            <div class="flex">
-                <h2>Camel Case</h2>
-                <code>text.toCamelCase()</code>
-            </div>
-            <p id="camelcase"></p>
-        </hgroup>
-        <hgroup>
-            <div class="flex">
-                <h2>Pascal Case</h2>
-                <code>text.toPascalCase()</code>
-            </div>
-            <p id="pascalcase"></p>
-        </hgroup>
-        <hgroup>
-            <div class="flex">
-                <h2>Kebab Case</h2>
-                <code>text.toKebabCase()</code>
-            </div>
-            <p id="kebabcase"></p>
-        </hgroup>
-        <hgroup>
-            <div class="flex">
-                <h2>Snake Case</h2>
-                <code>text.toSnakeCase()</code>
-            </div>
-            <p id="snakecase"></p>
         </hgroup>
         <hgroup>
             <div class="flex">
@@ -184,114 +161,95 @@
         </hgroup>
         <hgroup>
             <div class="flex">
-                <h2>Animate Per Letter</h2>
-                <code>text.animatePerLetter()</code>
+                <h2>Snake Case</h2>
+                <code>text.toSnakeCase()</code>
             </div>
-            <div class="flex-start">
-                <label for="reversed-letter">
-                    <input type="checkbox" id="reversed-letter">
-                    Reverse
-                </label>
-                <label for="out-letter">
-                    <input type="checkbox" id="out-letter">
-                    Out
-                </label>
-            </div>
-            <p id="animateperletter"></p>
+            <p id="snakecase"></p>
         </hgroup>
         <hgroup>
             <div class="flex">
-                <h2>Animate Per Word</h2>
-                <code>text.animatePerWord()</code>
+                <h2>Kebab Case</h2>
+                <code>text.toKebabCase()</code>
             </div>
-            <div class="flex-start">
-                <label for="reversed-word">
-                    <input type="checkbox" id="reversed-word">
-                    Reverse
-                </label>
-                <label for="out-word">
-                    <input type="checkbox" id="out-word">
-                    Out
-                </label>
+            <p id="kebabcase"></p>
+        </hgroup>
+        <hgroup>
+            <div class="flex">
+                <h2>Camel Case</h2>
+                <code>text.toCamelCase()</code>
             </div>
-            <p id="animateperword"></p>
+            <p id="camelcase"></p>
+        </hgroup>
+        <hgroup>
+            <div class="flex">
+                <h2>Pascal Case</h2>
+                <code>text.toPascalCase()</code>
+            </div>
+            <p id="pascalcase"></p>
+        </hgroup>
+        <hgroup>
+            <div class="flex">
+                <h2>Train Case</h2>
+                <code>text.toTrainCase()</code>
+            </div>
+            <p id="traincase"></p>
+        </hgroup>
+        <hgroup>
+            <div class="flex">
+                <h2>Constant Case</h2>
+                <code>text.toConstantCase()</code>
+            </div>
+            <p id="constantcase"></p>
         </hgroup>
     </main>
 
     <script type="module">
         import { Title } from "./dist/index.js";
 
-        const regularTitle = document.getElementById("regular");
-        const uppercaseTitle = document.getElementById("uppercase");
-        const lowercaseTitle = document.getElementById("lowercase");
-        const camelcaseTitle = document.getElementById("camelcase");
-        const pascalcaseTitle = document.getElementById("pascalcase");
-        const kebabcaseTitle = document.getElementById("kebabcase");
-        const snakecaseTitle = document.getElementById("snakecase");
-        const sentenceTitle = document.getElementById("sentence");
-        const titleTitle = document.getElementById("title");
-        const capitalTitle = document.getElementById("capital");
-        const alternatingTitle = document.getElementById("alternating");
-        const spongebobTitle = document.getElementById("spongebob");
-        const animatePerLetterTitle = document.getElementById("animateperletter");
-        const animatePerWordTitle = document.getElementById("animateperword");
-
         const text = new Title("the lord of the rings");
 
-        const upperText = text.toUpper();
-        const lowerText = text.toLower();
-        const camelText = text.toCamelCase();
-        const pascalText = text.toPascalCase();
-        const kebabText = text.toKebabCase();
-        const snakeText = text.toSnakeCase();
-        const sentenceText = text.toSentence();
-        const titleText = text.toTitle();
-        const capitalText = text.toCapital();
-        const alternatingText = text.toAlternating();
-        const spongebobText = text.toSpongeBob();
+        const regularWrapper = document.getElementById("regular");
+        const animateWrapper = document.getElementById("animate");
+        const uppercaseWrapper = document.getElementById("uppercase");
+        const lowercaseWrapper = document.getElementById("lowercase");
+        const camelcaseWrapper = document.getElementById("camelcase");
+        const pascalcaseWrapper = document.getElementById("pascalcase");
+        const kebabcaseWrapper = document.getElementById("kebabcase");
+        const snakecaseWrapper = document.getElementById("snakecase");
+        const sentenceWrapper = document.getElementById("sentence");
+        const titleWrapper = document.getElementById("title");
+        const capitalWrapper = document.getElementById("capital");
+        const alternatingWrapper = document.getElementById("alternating");
+        const spongebobWrapper = document.getElementById("spongebob");
+        const trainWrapper = document.getElementById("traincase");
+        const constantWrapper = document.getElementById("constantcase");
 
-        regularTitle.innerHTML = `<h3>${text.text}</h3>`;
-        uppercaseTitle.innerHTML = `<h3>${upperText}</h3>`;
-        lowercaseTitle.innerHTML = `<h3>${lowerText}</h3>`;
-        camelcaseTitle.innerHTML = `<h3>${camelText}</h3>`;
-        pascalcaseTitle.innerHTML = `<h3>${pascalText}</h3>`;
-        kebabcaseTitle.innerHTML = `<h3>${kebabText}</h3>`;
-        snakecaseTitle.innerHTML = `<h3>${snakeText}</h3>`;
-        sentenceTitle.innerHTML = `<h3>${sentenceText}</h3>`;
-        titleTitle.innerHTML = `<h3>${titleText}</h3>`;
-        capitalTitle.innerHTML = `<h3>${capitalText}</h3>`;
-        alternatingTitle.innerHTML = `<h3>${alternatingText}</h3>`;
-        spongebobTitle.innerHTML = `<h3>${spongebobText}</h3>`;
+        regularWrapper.innerHTML = `<h3>${text.text}</h3>`;
+        uppercaseWrapper.innerHTML = `<h3>${text.upper()}</h3>`;
+        lowercaseWrapper.innerHTML = `<h3>${text.lower()}</h3>`;
+        sentenceWrapper.innerHTML = `<h3>${text.sentence()}</h3>`;
+        titleWrapper.innerHTML = `<h3>${text.title()}</h3>`;
+        capitalWrapper.innerHTML = `<h3>${text.capital()}</h3>`;
+        alternatingWrapper.innerHTML = `<h3>${text.alternating()}</h3>`;
+        spongebobWrapper.innerHTML = `<h3>${text.spongebob()}</h3>`;
+        snakecaseWrapper.innerHTML = `<h3>${text.snake()}</h3>`;
+        kebabcaseWrapper.innerHTML = `<h3>${text.kebab()}</h3>`;
+        camelcaseWrapper.innerHTML = `<h3>${text.camel()}</h3>`;
+        pascalcaseWrapper.innerHTML = `<h3>${text.pascal()}</h3>`;
+        trainWrapper.innerHTML = `<h3>${text.train()}</h3>`;
+        constantWrapper.innerHTML = `<h3>${text.constant()}</h3>`;
 
-        const animatePerLetterCheckboxReversed = document.getElementById("reversed-letter");
-        const animatePerLetterCheckboxOut = document.getElementById("out-letter");
-        const animatePerWordCheckboxReversed = document.getElementById("reversed-word");
-        const animatePerWordCheckboxOut = document.getElementById("out-word");
-
-        let animatePerLetterState = 0;
-        let animatePerWordState = 0;
-
-        setInterval(() => {
-            const reveredLetterValue = animatePerLetterCheckboxReversed.checked;
-            const outLetterValue = animatePerLetterCheckboxOut.checked;
-            const animatePerLetterText = text.animatePerLetter({
-                reversed: reveredLetterValue,
-                out: outLetterValue
-            });
-            animatePerLetterTitle.innerHTML = `<h3>${animatePerLetterText[animatePerLetterState]}</h3>`;
-            animatePerLetterState = (animatePerLetterState + 1) % animatePerLetterText.length;
-        }, 100);
-
-        setInterval(() => {
-            const reversedWordValue = animatePerWordCheckboxReversed.checked;
-            const outWordValue = animatePerWordCheckboxOut.checked;
-            const animatePerWordText = text.animatePerWord({
-                reversed: reversedWordValue,
-                out: outWordValue
-            });
-            animatePerWordTitle.innerHTML = `<h3>${animatePerWordText[animatePerWordState]}</h3>`;
-            animatePerWordState = (animatePerWordState + 1) % animatePerWordText.length;
-        }, 500);
+        text.play({
+            speedMs: 100,
+            loop: true,
+            onTick: (frame) => (animateWrapper.innerHTML = `<h3>${frame}</h3>`),
+            onComplete: () => console.log('Animation completed'),
+            options: {
+                type: 'letter',
+                reversed: true,
+                out: true,
+            }
+        });
     </script>
 </body>
 

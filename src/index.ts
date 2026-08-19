@@ -1,18 +1,11 @@
 import { minorWords } from "./config.js";
+import { AnimateOptions, AnimationController, PlayOptions } from "./types.js";
 
 export class Title {
-    private _text: string;
+    text: string;
 
     constructor(text: string) {
-        this._text = text;
-    }
-
-    get text() {
-        return this._text;
-    }
-
-    set text(text: string) {
-        this._text = text;
+        this.text = text;
     }
 
     /**
@@ -20,8 +13,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "THE LORD OF THE RINGS"
      */
-    toUpper(): string {
-        return this._text.toUpperCase();
+    upper(): string {
+        return this.text.toUpperCase();
     }
 
     /**
@@ -29,8 +22,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "the lord of the rings"
      */
-    toLower(): string {
-        return this._text.toLowerCase();
+    lower(): string {
+        return this.text.toLowerCase();
     }
 
     /**
@@ -38,8 +31,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "The lord of the rings"
      */
-    toSentence(): string {
-        const text = this._text.toLowerCase();
+    sentence(): string {
+        const text = this.text.toLowerCase();
         const firstLetter = text.charAt(0).toUpperCase();
         const restOfText = text.slice(1);
         return firstLetter + restOfText;
@@ -50,8 +43,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "The Lord of the Rings"
      */
-    toTitle(): string {
-        const words = this._text.toLowerCase().split(' ');
+    title(): string {
+        const words = this.text.toLowerCase().split(' ');
         return words.map((word, index) => {
             if (minorWords.includes(word) && index !== 0) return word;
             return word.charAt(0).toUpperCase() + word.slice(1);
@@ -63,8 +56,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "The Lord Of The Rings"
      */
-    toCapital(): string {
-        const words = this._text.split(' ');
+    capital(): string {
+        const words = this.text.split(' ');
         return words.map((word) => {
             return word.charAt(0).toUpperCase() + word.slice(1);
         }).join(' ');
@@ -75,8 +68,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "ThE LoRd Of ThE rInGs"
      */
-    toAlternating(): string {
-        const text = this._text.split('');
+    alternating(): string {
+        const text = this.text.split('');
         return text.map((letter, index) => {
             return index % 2 === 0 ? letter.toUpperCase() : letter.toLowerCase();
         }).join('');
@@ -87,8 +80,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "ThE lOrD oF tHe RiNgS"
      */
-    toSpongeBob(): string {
-        const text = this._text.split('');
+    spongebob(): string {
+        const text = this.text.split('');
         return text.map((letter) => {
             const random = Math.random() > 0.5;
             return random ? letter.toUpperCase() : letter.toLowerCase();
@@ -100,8 +93,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "the_lord_of_the_rings"
      */
-    toSnakeCase(): string {
-        const text = this._text.toLowerCase();
+    snake(): string {
+        const text = this.text.toLowerCase();
         return text.split(' ').join('_');
     }
 
@@ -110,8 +103,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "the-lord-of-the-rings"
      */
-    toKebabCase(): string {
-        const text = this._text.toLowerCase();
+    kebab(): string {
+        const text = this.text.toLowerCase();
         return text.split(' ').join('-');
     }
 
@@ -120,8 +113,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "theLordOfTheRings"
      */
-    toCamelCase(): string {
-        const text = this._text.toLowerCase();
+    camel(): string {
+        const text = this.text.toLowerCase();
         return text.split(' ').map((word, index) => {
             if (index === 0) return word;
             return word.charAt(0).toUpperCase() + word.slice(1);
@@ -133,8 +126,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "TheLordOfTheRings"
      */
-    toPascalCase(): string {
-        const text = this._text.toLowerCase();
+    pascal(): string {
+        const text = this.text.toLowerCase();
         return text.split(' ').map((word) => {
             return word.charAt(0).toUpperCase() + word.slice(1);
         }).join('');
@@ -145,8 +138,8 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "The-Lord-Of-The-Rings"
      */
-    toTrainCase(): string {
-        const text = this._text.toLowerCase();
+    train(): string {
+        const text = this.text.toLowerCase();
         return text.split(' ').map((word) => {
             return word.charAt(0).toUpperCase() + word.slice(1);
         }).join('-');
@@ -157,68 +150,129 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "THE_LORD_OF_THE_RINGS"
      */
-    toConstantCase(): string {
-        const text = this._text.toLowerCase();
+    constant(): string {
+        const text = this.text.toLowerCase();
         return text.split(' ').join('_').toUpperCase();
     }
 
     /**
-     * @description A list of the text from first letter to full text arranged orderly, can be reversed.
-     * @param {{ reversed: boolean, out: boolean }} options - Options to reverse the text or not.
+     * @description Creates a list of the text from first letter to full text arranged orderly, can be reversed and out.
+     * @param {AnimateOptions} options - Options to control the animation.
      * @returns {string[]}
      * @example "hello" => ["h", "he", "hel", "hell", "hello"]
-     * @example "hello" with out => ["hello", "hell", "hel", "he", "h"]
      * @example "hello" with reversed => ["o", "lo", "llo", "ello", "hello"]
+     * @example "hello" with out => ["hello", "hell", "hel", "he", "h"]
      * @example "hello" with reversed and out => ["hello", "ello", "llo", "lo", "o"]
      */
-    animatePerLetter({ reversed, out }: { reversed?: boolean, out?: boolean }): string[] {
-        const text = this._text.split('');
-        const maxLength = text.length;
+    animate(options: AnimateOptions = { type: 'letter', reversed: false, out: false }): string[] {
+        const chars = this.text.split("");
+        const words = this.text.split(" ");
+        const frames: string[] = [];
 
-        if (reversed && out) return text.map((_, index) => {
-            return text.slice(index, maxLength - 1).join('');
-        });
-
-        if (reversed) return text.map((_, index) => {
-            return text.slice(maxLength - index).join('');
-        });
-
-        if (out) return text.map((_, index) => {
-            return text.slice(0, maxLength - index).join('');
-        });
-
-        return text.map((_, index) => {
-            return text.slice(0, index + 1).join('');
-        });
+        if (options.out && options.reversed) {
+            if (options.type === 'letter') {
+                for (let i = 0; i <= chars.length; i++) {
+                    const text = chars.slice(i)
+                    frames.push(text.join(""));
+                }
+            } else if (options.type === 'word') {
+                for (let i = 0; i <= words.length; i++) {
+                    const text = words.slice(i)
+                    frames.push(text.join(" "));
+                }
+            }
+        } else if (options.reversed) {
+            if (options.type === 'letter') {
+                for (let i = chars.length; i >= 0; i--) {
+                    const text = chars.slice(i);
+                    frames.push(text.join(""));
+                }
+            } else if (options.type === 'word') {
+                for (let i = words.length; i >= 0; i--) {
+                    const text = words.slice(i);
+                    frames.push(text.join(" "));
+                }
+            }
+        } else if (options.out) {
+            if (options.type === 'letter') {
+                for (let i = chars.length; i >= 0; i--) {
+                    const text = chars.slice(0, i);
+                    frames.push(text.join(""));
+                }
+            } else if (options.type === 'word') {
+                for (let i = words.length; i >= 0; i--) {
+                    const text = words.slice(0, i);
+                    frames.push(text.join(" "));
+                }
+            }
+        } else {
+            if (options.type === 'letter') {
+                for (let i = 0; i <= chars.length; i++) {
+                    const text = chars.slice(0, i)
+                    frames.push(text.join(""));
+                }
+            } else if (options.type === 'word') {
+                for (let i = 0; i <= words.length; i++) {
+                    const text = words.slice(0, i)
+                    frames.push(text.join(" "));
+                }
+            }
+        }
+        return frames;
     }
 
     /**
-     * @description A list of the text from first word to full text arranged orderly, can be reversed.
-     * @param {{ reversed: boolean, out: boolean }} options - Options to reverse the text or not.
-     * @returns {string[]}
-     * @example "hello world" => ["hello", "hello world"]
-     * @example "hello world" with out => ["hello world", "world"]
-     * @example "hello world" with reversed => ["world", "hello world"]
-     * @example "hello world" with reversed and out => ["world", "hello world"]
+     * @description Animates the text.
+     * @param {PlayOptions} options - Options to control the animation.
+     * @returns {AnimationController}
+     * @example
      */
-    animatePerWord({ reversed, out }: { reversed?: boolean, out?: boolean }): string[] {
-        const words = this._text.split(' ');
-        const maxLength = words.length;
+    play(options: PlayOptions = {}): AnimationController {
+        const { speedMs = 60, loop = false, onTick, onComplete } = options;
+        const frames = this.animate(options.options);
 
-        if (reversed && out) return words.map((_, index) => {
-            return words.slice(index, maxLength - 1).join(' ');
-        });
+        let currentIndex = 0;
+        let timerId: ReturnType<typeof setTimeout> | null = null;
+        let isRunning = false;
 
-        if (reversed) return words.map((_, index) => {
-            return words.slice(maxLength - index).join(' ');
-        });
+        const tick = () => {
+            if (!isRunning) return;
 
-        if (out) return words.map((_, index) => {
-            return words.slice(0, maxLength - index).join(' ');
-        });
+            if (currentIndex < frames.length) {
+                onTick?.(frames[currentIndex]);
+                currentIndex++;
+                timerId = setTimeout(tick, speedMs);
+            } else if (loop) {
+                currentIndex = 0;
+                timerId = setTimeout(tick, speedMs);
+            } else {
+                isRunning = false;
+                onComplete?.();
+            }
+        };
 
-        return words.map((_, index) => {
-            return words.slice(0, index + 1).join(' ');
-        });
+        const controller: AnimationController = {
+            get isRunning() {
+                return isRunning;
+            },
+            pause: () => {
+                isRunning = false;
+                if (timerId !== null) clearTimeout(timerId);
+            },
+            resume: () => {
+                if (!isRunning) {
+                    isRunning = true;
+                    tick();
+                }
+            },
+            stop: () => {
+                isRunning = false;
+                if (timerId !== null) clearTimeout(timerId);
+                currentIndex = 0;
+            },
+        };
+
+        controller.resume();
+        return controller;
     }
 }
