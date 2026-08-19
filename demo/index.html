@@ -11,14 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
         rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <style>
         body {
             background: linear-gradient(to bottom right, #324779, #2a6b6c);
+            color: white;
         }
 
         main {
@@ -47,7 +45,6 @@
         }
 
         a {
-            color: #fff;
             text-decoration: none;
             transition: opacity 0.3s ease;
         }
@@ -57,28 +54,9 @@
             text-decoration: underline;
         }
 
-        h1 {
-            font-weight: 800;
-        }
-
-        h2 {
-            font-size: 0.9rem;
-            color: #fff;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            color: #000;
-        }
-
-        p {
-            color: #fff;
-        }
-
         code {
             display: block;
             background-color: #1f1f2d;
-            color: #fff;
             padding: 0.5rem;
             border-radius: 0.5rem;
 
@@ -103,122 +81,128 @@
         code>span.obj {
             color: #3a996e;
         }
-
-        .flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .flex-start {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            gap: 0.5rem;
-        }
     </style>
 </head>
 
 <body>
     <main>
-        <h1 style="color: white;">Be Title Demo</h1>
-        <p style="color: white;">
-            Easy way to convert text to different cases and animate them.
-        </p>
+        <h1 class="font-bold text-4xl">Be Title Demo</h1>
+        <p class="text-lg">Easy way to convert text to different cases and animate them.</p>
 
-        <hgroup>
+        <hgroup class="col-span-2">
             <h2>Installation</h2>
             <code><span class="var">npm</span> i be-title</code>
-            <div class="flex-start">
+            <div class="flex items-center gap-2">
                 <p>Open links:</p>
                 <a href="https://github.com/tonytomo/be-title" target="_blank">Github</a>
                 <a href="https://www.npmjs.com/package/be-title" target="_blank">NPM</a>
             </div>
         </hgroup>
 
-        <hgroup>
+        <hgroup class="col-span-2">
             <h2>Regular</h2>
-            <p id="regular"></p>
+            <h3 id="regular"></h3>
             <code><span class="var">const</span> text = <span class="type">new</span> <span class="obj">Title</span>("the lord of the rings");</code>
         </hgroup>
         <hgroup>
+            <h2>Truncate</h2>
+            <h3 id="truncate"></h3>
+            <code><span class="var">text</span>.<span class="func">truncate</span>({<span class="var">max</span>: 10, <span class="var">suffix</span>: "..."})</code>
+        </hgroup>
+        <hgroup>
+            <h2>Hide</h2>
+            <h3 id="hide"></h3>
+            <code><span class="var">text</span>.<span class="func">hide</span>({<span class="var">from</span>: 0, <span
+                    class="var">numChar</span>: 16, <span class="var">hideChar</span>: "*"})</code>
+        </hgroup>
+
+        <h2 class="col-span-2 border-t border-gray-400 pt-10 text-2xl font-medium">
+            Animation
+        </h2>
+
+        <hgroup>
             <h2>Animation In and Out</h2>
-            <p id="inout"></p>
+            <h3 id="inout"></h3>
             <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'inout' })</code>
         </hgroup>
         <hgroup>
             <h2>Animation Scramble</h2>
-            <p id="scramble"></p>
+            <h3 id="scramble"></h3>
             <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'scramble' })</code>
         </hgroup>
         <hgroup>
             <h2>Animation Cycle</h2>
-            <p id="cycle"></p>
+            <h3 id="cycle"></h3>
             <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'cycle' })</code>
         </hgroup>
+
+        <h2 class="col-span-2 border-t border-gray-400 pt-10 text-2xl font-medium">
+            Cases
+        </h2>
+
         <hgroup>
             <h2>Uppercase</h2>
-            <p id="uppercase"></p>
+            <h3 id="uppercase"></h3>
             <code><span class="var">text</span>.<span class="func">upper</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Lowercase</h2>
-            <p id="lowercase"></p>
+            <h3 id="lowercase"></h3>
             <code><span class="var">text</span>.<span class="func">lower</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Sentence Case</h2>
-            <p id="sentence"></p>
+            <h3 id="sentence"></h3>
             <code><span class="var">text</span>.<span class="func">sentence</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Title Case</h2>
-            <p id="title"></p>
+            <h3 id="title"></h3>
             <code><span class="var">text</span>.<span class="func">title</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Capital Case</h2>
-            <p id="capital"></p>
+            <h3 id="capital"></h3>
             <code><span class="var">text</span>.<span class="func">capital</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Alternating Case</h2>
-            <p id="alternating"></p>
+            <h3 id="alternating"></h3>
             <code><span class="var">text</span>.<span class="func">alternating</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Spongebob Case</h2>
-            <p id="spongebob"></p>
+            <h3 id="spongebob"></h3>
             <code><span class="var">text</span>.<span class="func">spongebob</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Snake Case</h2>
-            <p id="snakecase"></p>
+            <h3 id="snakecase"></h3>
             <code><span class="var">text</span>.<span class="func">snake</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Kebab Case</h2>
-            <p id="kebabcase"></p>
+            <h3 id="kebabcase"></h3>
             <code><span class="var">text</span>.<span class="func">kebab</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Camel Case</h2>
-            <p id="camelcase"></p>
+            <h3 id="camelcase"></h3>
             <code><span class="var">text</span>.<span class="func">camel</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Pascal Case</h2>
-            <p id="pascalcase"></p>
+            <h3 id="pascalcase"></h3>
             <code><span class="var">text</span>.<span class="func">pascal</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Train Case</h2>
-            <p id="traincase"></p>
+            <h3 id="traincase"></h3>
             <code><span class="var">text</span>.<span class="func">train</span>()</code>
         </hgroup>
         <hgroup>
             <h2>Constant Case</h2>
-            <p id="constantcase"></p>
+            <h3 id="constantcase"></h3>
             <code><span class="var">text</span>.<span class="func">constant</span>()</code>
         </hgroup>
     </main>
@@ -229,34 +213,52 @@
         const text = new Title("the lord of the rings");
 
         const regularWrapper = document.getElementById("regular");
-        const uppercaseWrapper = document.getElementById("uppercase");
-        const lowercaseWrapper = document.getElementById("lowercase");
-        const camelcaseWrapper = document.getElementById("camelcase");
-        const pascalcaseWrapper = document.getElementById("pascalcase");
-        const kebabcaseWrapper = document.getElementById("kebabcase");
-        const snakecaseWrapper = document.getElementById("snakecase");
-        const sentenceWrapper = document.getElementById("sentence");
-        const titleWrapper = document.getElementById("title");
-        const capitalWrapper = document.getElementById("capital");
-        const alternatingWrapper = document.getElementById("alternating");
-        const spongebobWrapper = document.getElementById("spongebob");
-        const trainWrapper = document.getElementById("traincase");
-        const constantWrapper = document.getElementById("constantcase");
+        regularWrapper.textContent = text.text;
 
-        regularWrapper.innerHTML = `<h3>${text.text}</h3>`;
-        uppercaseWrapper.innerHTML = `<h3>${text.upper()}</h3>`;
-        lowercaseWrapper.innerHTML = `<h3>${text.lower()}</h3>`;
-        sentenceWrapper.innerHTML = `<h3>${text.sentence()}</h3>`;
-        titleWrapper.innerHTML = `<h3>${text.title()}</h3>`;
-        capitalWrapper.innerHTML = `<h3>${text.capital()}</h3>`;
-        alternatingWrapper.innerHTML = `<h3>${text.alternating()}</h3>`;
-        spongebobWrapper.innerHTML = `<h3>${text.spongebob()}</h3>`;
-        snakecaseWrapper.innerHTML = `<h3>${text.snake()}</h3>`;
-        kebabcaseWrapper.innerHTML = `<h3>${text.kebab()}</h3>`;
-        camelcaseWrapper.innerHTML = `<h3>${text.camel()}</h3>`;
-        pascalcaseWrapper.innerHTML = `<h3>${text.pascal()}</h3>`;
-        trainWrapper.innerHTML = `<h3>${text.train()}</h3>`;
-        constantWrapper.innerHTML = `<h3>${text.constant()}</h3>`;
+        const truncateWrapper = document.getElementById("truncate");
+        truncateWrapper.textContent = text.truncate({ max: 10, suffix: "..." });
+
+        const hideWrapper = document.getElementById("hide");
+        hideWrapper.textContent = text.hide({ from: 0, numChar: 16, hideChar: '*' });
+
+        const uppercaseWrapper = document.getElementById("uppercase");
+        uppercaseWrapper.textContent = text.upper();
+
+        const lowercaseWrapper = document.getElementById("lowercase");
+        lowercaseWrapper.textContent = text.lower();
+
+        const camelcaseWrapper = document.getElementById("camelcase");
+        camelcaseWrapper.textContent = text.camel();
+
+        const pascalcaseWrapper = document.getElementById("pascalcase");
+        pascalcaseWrapper.textContent = text.pascal();
+
+        const kebabcaseWrapper = document.getElementById("kebabcase");
+        kebabcaseWrapper.textContent = text.kebab();
+
+        const snakecaseWrapper = document.getElementById("snakecase");
+        snakecaseWrapper.textContent = text.snake();
+
+        const sentenceWrapper = document.getElementById("sentence");
+        sentenceWrapper.textContent = text.sentence();
+
+        const titleWrapper = document.getElementById("title");
+        titleWrapper.textContent = text.title();
+
+        const capitalWrapper = document.getElementById("capital");
+        capitalWrapper.textContent = text.capital();
+
+        const alternatingWrapper = document.getElementById("alternating");
+        alternatingWrapper.textContent = text.alternating();
+
+        const spongebobWrapper = document.getElementById("spongebob");
+        spongebobWrapper.textContent = text.spongebob();
+
+        const trainWrapper = document.getElementById("traincase");
+        trainWrapper.textContent = text.train();
+
+        const constantWrapper = document.getElementById("constantcase");
+        constantWrapper.textContent = text.constant();
 
         const inoutWrapper = document.getElementById("inout");
         const scrambleWrapper = document.getElementById("scramble");
@@ -265,23 +267,35 @@
         text.play({
             speedMs: 100,
             loop: true,
-            onTick: (frame) => (inoutWrapper.innerHTML = `<h3>${frame}</h3>`),
+            onTick: (frame) => (inoutWrapper.textContent = frame),
             onComplete: () => console.log('Animation completed'),
-            animation: 'inout'
+            animation: 'inout',
+            animationOptions: {
+                cursor: '_',
+                blinkSpeed: 3
+            }
         });
         text.play({
             speedMs: 100,
             loop: true,
-            onTick: (frame) => (scrambleWrapper.innerHTML = `<h3>${frame}</h3>`),
+            onTick: (frame) => (scrambleWrapper.textContent = frame),
             onComplete: () => console.log('Animation completed'),
-            animation: 'scramble'
+            animation: 'scramble',
+            animationOptions: {
+                scrambleChars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+                iterationsPerChar: 2
+            }
         });
         text.play({
             speedMs: 100,
             loop: true,
-            onTick: (frame) => (cycleWrapper.innerHTML = `<h3>${frame}</h3>`),
+            onTick: (frame) => (cycleWrapper.textContent = frame),
             onComplete: () => console.log('Animation completed'),
-            animation: 'cycle'
+            animation: 'cycle',
+            animationOptions: {
+                cursor: '█',
+                blinkSpeed: 3
+            }
         });
     </script>
 </body>

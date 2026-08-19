@@ -1,61 +1,82 @@
 import { CycleOptions, InOutOptions, ScrambleOptions } from "./types";
 
+export function truncateText(text: string, options?: { max?: number, suffix?: string }): string {
+    const max = options?.max || 15;
+    const suffix = options?.suffix || '...';
+    if (text.length <= max) return text;
+    return text.slice(0, max).trimEnd() + suffix;
+}
+
+export function hideText(text: string, options?: { from?: number, numChar?: number, hideChar?: string }): string {
+    const from = options?.from || 0;
+    const numChar = options?.numChar || 1;
+    const hideChar = options?.hideChar || '•';
+    if (text.length <= from) return text;
+    return text.slice(0, from) + hideChar.repeat(numChar) + text.slice(from + numChar);
+}
+
 export function generateInOutFrames(
     targetText: string,
     options: InOutOptions = {}
 ): string[] {
-    const { type = 'letter', reversed = false, out = false, cursor = '', blinkSpeed = 100 } = options;
+    const { type = 'letter', reversed = false, out = false, cursor = '', blinkSpeed = 2 } = options;
 
     const chars = targetText.split("");
     const words = targetText.split(" ");
     const frames: string[] = [];
 
+    const addFrame = (text: string) => {
+        const showCursor = Math.floor(frames.length / Math.max(1, blinkSpeed)) % 2 === 0;
+        const currentCursor = showCursor ? cursor : '';
+        frames.push(reversed ? currentCursor + text : text + currentCursor);
+    };
+
     if (out && reversed) {
         if (type === 'letter') {
             for (let i = 0; i <= chars.length; i++) {
-                const text = chars.slice(i)
-                frames.push(text.join(""));
+                const text = chars.slice(i);
+                addFrame(text.join(""));
             }
         } else if (type === 'word') {
             for (let i = 0; i <= words.length; i++) {
-                const text = words.slice(i)
-                frames.push(text.join(" "));
+                const text = words.slice(i);
+                addFrame(text.join(" "));
             }
         }
     } else if (reversed) {
         if (type === 'letter') {
             for (let i = chars.length; i >= 0; i--) {
                 const text = chars.slice(i);
-                frames.push(text.join(""));
+                addFrame(text.join(""));
             }
         } else if (type === 'word') {
             for (let i = words.length; i >= 0; i--) {
                 const text = words.slice(i);
-                frames.push(text.join(" "));
+                addFrame(text.join(" "));
             }
         }
     } else if (out) {
         if (type === 'letter') {
             for (let i = chars.length; i >= 0; i--) {
                 const text = chars.slice(0, i);
-                frames.push(text.join(""));
+                addFrame(text.join(""));
             }
         } else if (type === 'word') {
             for (let i = words.length; i >= 0; i--) {
                 const text = words.slice(0, i);
-                frames.push(text.join(" "));
+                addFrame(text.join(" "));
             }
         }
     } else {
         if (type === 'letter') {
             for (let i = 0; i <= chars.length; i++) {
-                const text = chars.slice(0, i)
-                frames.push(text.join(""));
+                const text = chars.slice(0, i);
+                addFrame(text.join(""));
             }
         } else if (type === 'word') {
             for (let i = 0; i <= words.length; i++) {
-                const text = words.slice(0, i)
-                frames.push(text.join(" "));
+                const text = words.slice(0, i);
+                addFrame(text.join(" "));
             }
         }
     }

@@ -1,6 +1,6 @@
 import { minorWords } from "./config.js";
 import { AnimationController, CycleOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo } from "./types.js";
-import { generateCycleFrames, generateInOutFrames, generateScrambleFrames } from "./utils.js";
+import { generateCycleFrames, generateInOutFrames, generateScrambleFrames, hideText, truncateText } from "./utils.js";
 
 export class Title {
     text: string;
@@ -20,6 +20,31 @@ export class Title {
             words: words.length,
             hasMinorWords: words.some((word) => minorWords.includes(word)),
         }
+    }
+
+    /**
+     * @description Truncates the text.
+     * @param {Object} options - Options to control the truncation.
+     * @param {number} options.max - The maximum length of the text.
+     * @param {string} options.suffix - The suffix to add to the truncated text.
+     * @returns {string}
+     * @example "the lord of the rings" => "the lord of the..."
+     */
+    truncate(options: { max?: number, suffix?: string } = {}): string {
+        return truncateText(this.text, options);
+    }
+
+    /**
+     * @description Hides the text.
+     * @param {Object} options - Options to control the hiding.
+     * @param {number} options.from - The index to start hiding from.
+     * @param {number} options.numChar - The number of characters to hide.
+     * @param {string} options.hideChar - The character to use for hiding.
+     * @returns {string}
+     * @example "the lord of the rings" => "**********of the rings" (hide first 10 chars)
+     */
+    hide(options: { from?: number, numChar?: number, hideChar?: string } = {}): string {
+        return hideText(this.text, options);
     }
 
     /**
