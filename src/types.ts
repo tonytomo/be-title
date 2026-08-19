@@ -1,7 +1,14 @@
-export interface TextInfo {
-    chars: number;
+export interface TextStats {
     words: number;
-    hasMinorWords: boolean;
+    characters: number;
+    charactersNoSpaces: number;
+    readingTimeMs: number;
+    readingTimeText: string;
+}
+
+export interface InitialOptions {
+    maxInitials?: number;
+    skipMinorWords?: boolean;
 }
 
 export interface TruncateOptions {

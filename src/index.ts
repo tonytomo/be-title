@@ -1,6 +1,6 @@
 import { minorWords } from "./config.js";
-import { AnimationController, BoxOptions, CycleOptions, FlickerOptions, GradientOptions, HideTextOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo, TruncateOptions, WaveOptions } from "./types.js";
-import { generateCycleFrames, generateFlickerFrames, generateInOutFrames, generateScrambleFrames, generateWaveFrames, hideText, toBox, toGradient, truncateText } from "./utils.js";
+import { AnimationController, BoxOptions, CycleOptions, FlickerOptions, GradientOptions, HideTextOptions, InitialOptions, InOutOptions, PlayOptions, ScrambleOptions, TextStats, TruncateOptions, WaveOptions } from "./types.js";
+import { generateCycleFrames, generateFlickerFrames, generateInOutFrames, generateScrambleFrames, generateWaveFrames, getInitials, getSlug, getStats, hideText, removeChar, toBox, toGradient, truncateText } from "./utils.js";
 
 export class Title {
     text: string;
@@ -11,15 +11,42 @@ export class Title {
 
     /**
      * @description Get information about the text.
-     * @returns {TextInfo}
+     * @param {number} wpm - The words per minute.
+     * @returns {TextStats}
      */
-    info(): TextInfo {
-        const words = this.text.split(' ');
-        return {
-            chars: this.text.length,
-            words: words.length,
-            hasMinorWords: words.some((word) => minorWords.includes(word)),
-        }
+    stats(wpm: number = 200): TextStats {
+        return getStats(this.text, wpm);
+    }
+
+    /**
+     * @description Get the initials of the text.
+     * @param {Object} options - Options to control the initials.
+     * @param {number} options.maxInitials - The maximum number of initials to get.
+     * @param {boolean} options.skipMinorWords - Whether to skip minor words.
+     * @returns {string}
+     * @example "the lord of the rings" => "TLOTR" (with default options)
+     */
+    initials(options: InitialOptions = {}): string {
+        return getInitials(this.text, options);
+    }
+
+    /**
+     * @description Converts the text to a slug.
+     * @returns {string}
+     * @example "the lord of the rings" => "the-lord-of-the-rings"
+     */
+    slug(): string {
+        return getSlug(this.text);
+    }
+
+    /**
+     * @description Removes the specified words from the text.
+     * @param {string[]} chars - The words to remove.
+     * @returns {string}
+     * @example "the lord of the rings" => "lord rings" (remove "the", "of")
+     */
+    remove(chars: string[]): string {
+        return removeChar(this.text, chars);
     }
 
     /**

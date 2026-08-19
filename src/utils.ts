@@ -1,4 +1,58 @@
-import { BOX_STYLES, BoxOptions, CycleOptions, FlickerOptions, GradientOptions, HideTextOptions, InOutOptions, ScrambleOptions, TruncateOptions, WaveOptions } from "./types.js";
+import { minorWords } from "./config.js";
+import { BOX_STYLES, BoxOptions, CycleOptions, FlickerOptions, GradientOptions, HideTextOptions, InitialOptions, InOutOptions, ScrambleOptions, TextStats, TruncateOptions, WaveOptions } from "./types.js";
+
+export function getStats(text: string, wpm = 200): TextStats {
+    const trimmed = text.trim();
+    const words = trimmed ? trimmed.split(/\s+/).length : 0;
+    const characters = text.length;
+    const charactersNoSpaces = text.replace(/\s/g, "").length;
+
+    const readingTimeMinutes = words / wpm;
+    const readingTimeMs = Math.ceil(readingTimeMinutes * 60 * 1000);
+    const minutesCeil = Math.ceil(readingTimeMinutes);
+
+    return {
+        words,
+        characters,
+        charactersNoSpaces,
+        readingTimeMs,
+        readingTimeText: `${minutesCeil} min read`,
+    };
+}
+
+export function getInitials(text: string, options: InitialOptions = {}): string {
+    const { maxInitials = 99, skipMinorWords = false } = options;
+
+    const words = text
+        .trim()
+        .split(/[\s-_]+/)
+        .filter((w) => w.length > 0)
+        .filter((w) => !skipMinorWords || !minorWords.includes(w.toLowerCase()));
+
+    return words
+        .slice(0, maxInitials)
+        .map((w) => w[0].toUpperCase())
+        .join("");
+}
+
+export function getSlug(text: string): string {
+    return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/[\s_-]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+}
+
+export function removeChar(text: string, chars: string[]): string {
+    let result = text;
+    chars.forEach((char) => {
+        result = result.replace(char, "");
+    });
+    return result;
+}
 
 export function truncateText(text: string, options?: TruncateOptions): string {
     const max = options?.max || 15;
