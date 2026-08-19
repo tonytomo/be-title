@@ -3,8 +3,8 @@ export interface PlayOptions {
     loop?: boolean;
     onTick?: (frame: string) => void;
     onComplete?: () => void;
-    animation?: 'animate' | 'scramble';
-    animationOptions?: InOutOptions | ScrambleOptions
+    animation?: 'inout' | 'scramble' | 'cycle';
+    animationOptions?: InOutOptions | ScrambleOptions | CycleOptions
 }
 
 export interface AnimationController {
@@ -23,4 +23,9 @@ export interface InOutOptions {
 export interface ScrambleOptions {
     scrambleChars?: string;
     iterationsPerChar?: number;
+}
+
+export interface CycleOptions {
+    pauseFrames?: number;
+    cursor?: string;
 }

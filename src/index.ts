@@ -1,5 +1,6 @@
 import { minorWords } from "./config.js";
-import { AnimationController, InOutOptions, PlayOptions, ScrambleOptions } from "./types.js";
+import { AnimationController, CycleOptions, InOutOptions, PlayOptions, ScrambleOptions } from "./types.js";
+import { generateCycleFrames, generateInOutFrames, generateScrambleFrames } from "./utils.js";
 
 export class Title {
     text: string;
@@ -161,62 +162,7 @@ export class Title {
      * @returns {string[]}
      */
     inout(options: InOutOptions = {}): string[] {
-        const { type = 'letter', reversed = false, out = false } = options;
-
-        const chars = this.text.split("");
-        const words = this.text.split(" ");
-        const frames: string[] = [];
-
-        if (out && reversed) {
-            if (type === 'letter') {
-                for (let i = 0; i <= chars.length; i++) {
-                    const text = chars.slice(i)
-                    frames.push(text.join(""));
-                }
-            } else if (type === 'word') {
-                for (let i = 0; i <= words.length; i++) {
-                    const text = words.slice(i)
-                    frames.push(text.join(" "));
-                }
-            }
-        } else if (reversed) {
-            if (type === 'letter') {
-                for (let i = chars.length; i >= 0; i--) {
-                    const text = chars.slice(i);
-                    frames.push(text.join(""));
-                }
-            } else if (type === 'word') {
-                for (let i = words.length; i >= 0; i--) {
-                    const text = words.slice(i);
-                    frames.push(text.join(" "));
-                }
-            }
-        } else if (out) {
-            if (type === 'letter') {
-                for (let i = chars.length; i >= 0; i--) {
-                    const text = chars.slice(0, i);
-                    frames.push(text.join(""));
-                }
-            } else if (type === 'word') {
-                for (let i = words.length; i >= 0; i--) {
-                    const text = words.slice(0, i);
-                    frames.push(text.join(" "));
-                }
-            }
-        } else {
-            if (type === 'letter') {
-                for (let i = 0; i <= chars.length; i++) {
-                    const text = chars.slice(0, i)
-                    frames.push(text.join(""));
-                }
-            } else if (type === 'word') {
-                for (let i = 0; i <= words.length; i++) {
-                    const text = words.slice(0, i)
-                    frames.push(text.join(" "));
-                }
-            }
-        }
-        return frames;
+        return generateInOutFrames(this.text, options);
     }
 
     /**
@@ -224,37 +170,18 @@ export class Title {
      * @param {ScrambleOptions} options - Options to control the scramble.
      * @returns {string[]}
      */
-    scramble(options: ScrambleOptions = {}) {
-        const {
-            scrambleChars = "!@#$%^&*()_+-=[]{}|;:,.<>/?0123456789",
-            iterationsPerChar = 3,
-        } = options;
+    scramble(options: ScrambleOptions = {}): string[] {
+        return generateScrambleFrames(this.text, options);
+    }
 
-        const totalLength = this.text.length;
-        const totalFrames = totalLength * iterationsPerChar;
-        const frames: string[] = [];
-
-        const getRandomChar = () =>
-            scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-
-        for (let frameIdx = 0; frameIdx <= totalFrames; frameIdx++) {
-            const revealedCount = Math.floor(frameIdx / iterationsPerChar);
-            let frame = "";
-
-            for (let i = 0; i < totalLength; i++) {
-                if (i < revealedCount) {
-                    frame += this.text[i];
-                } else if (this.text[i] === " ") {
-                    frame += " ";
-                } else {
-                    frame += getRandomChar();
-                }
-            }
-            frames.push(frame);
-        }
-
-        frames.push(this.text);
-        return frames;
+    /**
+     * @description Cycles through a list of words.
+     * @param {string[]} words - The list of words to cycle through.
+     * @param {CycleOptions} options - Options to control the animation.
+     * @returns {string[]}
+     */
+    cycle(options: CycleOptions = {}): string[] {
+        return generateCycleFrames(this.text, options);
     }
 
     /**
@@ -269,10 +196,18 @@ export class Title {
             loop = false,
             onTick,
             onComplete,
-            animation = 'animate',
+            animation = 'inout',
             animationOptions
         } = options;
-        const frames = animation === 'animate' ? this.inout(animationOptions as InOutOptions) : this.scramble(animationOptions as ScrambleOptions);
+        let frames: string[] = [];
+
+        if (animation === 'inout') {
+            frames = this.inout(animationOptions as InOutOptions);
+        } else if (animation === 'scramble') {
+            frames = this.scramble(animationOptions as ScrambleOptions);
+        } else if (animation === 'cycle') {
+            frames = this.cycle(animationOptions as CycleOptions);
+        }
 
         let currentIndex = 0;
         let timerId: ReturnType<typeof setTimeout> | null = null;
