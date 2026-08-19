@@ -1,4 +1,4 @@
-import { CycleOptions, GradientOptions, InOutOptions, ScrambleOptions } from "./types";
+import { BOX_STYLES, BoxOptions, CycleOptions, GradientOptions, InOutOptions, ScrambleOptions, WaveOptions } from "./types.js";
 
 export function truncateText(text: string, options?: { max?: number, suffix?: string }): string {
     const max = options?.max || 15;
@@ -152,6 +152,23 @@ export function generateCycleFrames(
     return frames;
 }
 
+export function generateWaveFrames(text: string, options: WaveOptions = {}): string[] {
+    const { wavesCount = 2 } = options;
+    const frames: string[] = [];
+    const chars = text.toLowerCase().split('');
+
+    for (let w = 0; w < wavesCount; w++) {
+        for (let i = 0; i < chars.length; i++) {
+            if (chars[i] === ' ') continue;
+            const frame = chars
+                .map((char, idx) => (idx === i ? char.toUpperCase() : char))
+                .join('');
+            frames.push(frame);
+        }
+    }
+    return frames;
+}
+
 export function toGradient(text: string, options: GradientOptions): string {
     const { fromColor, toColor, format = 'ansi' } = options;
     const len = text.length;
@@ -171,4 +188,18 @@ export function toGradient(text: string, options: GradientOptions): string {
                 : `<span style="color: rgb(${r}, ${g}, ${b})">${char}</span>`;
         })
         .join('');
+}
+
+export function toBox(text: string, options: BoxOptions = {}): string {
+    const { padding = 1, style = 'rounded' } = options;
+    const b = BOX_STYLES[style];
+    const padStr = ' '.repeat(padding);
+    const innerText = `${padStr}${text}${padStr}`;
+    const width = innerText.length;
+
+    const top = `${b.tl}${b.h.repeat(width)}${b.tr}`;
+    const middle = `${b.v}${innerText}${b.v}`;
+    const bottom = `${b.bl}${b.h.repeat(width)}${b.br}`;
+
+    return [top, middle, bottom].join('\n');
 }

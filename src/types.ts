@@ -9,8 +9,8 @@ export interface PlayOptions {
     loop?: boolean;
     onTick?: (frame: string) => void;
     onComplete?: () => void;
-    animation?: 'inout' | 'scramble' | 'cycle';
-    animationOptions?: InOutOptions | ScrambleOptions | CycleOptions
+    animation?: 'inout' | 'scramble' | 'cycle' | 'wave';
+    animationOptions?: InOutOptions | ScrambleOptions | CycleOptions | WaveOptions
 }
 
 export interface AnimationController {
@@ -39,8 +39,23 @@ export interface CycleOptions {
     blinkSpeed?: number;
 }
 
+export interface WaveOptions {
+    wavesCount?: number
+}
+
 export interface GradientOptions {
     fromColor: [number, number, number]; // [R, G, B]
     toColor: [number, number, number];   // [R, G, B]
     format?: 'ansi' | 'html';
 }
+
+export interface BoxOptions {
+    padding?: number;
+    style?: 'single' | 'double' | 'rounded';
+}
+
+export const BOX_STYLES = {
+    single: { tl: '┌', tr: '┐', bl: '└', br: '┘', h: '─', v: '│' },
+    double: { tl: '╔', tr: '╗', bl: '╚', br: '╝', h: '═', v: '║' },
+    rounded: { tl: '╭', tr: '╮', bl: '╰', br: '╯', h: '─', v: '│' },
+};

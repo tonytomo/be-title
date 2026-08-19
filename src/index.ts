@@ -1,6 +1,6 @@
 import { minorWords } from "./config.js";
-import { AnimationController, CycleOptions, GradientOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo } from "./types.js";
-import { generateCycleFrames, generateInOutFrames, generateScrambleFrames, hideText, toGradient, truncateText } from "./utils.js";
+import { AnimationController, BoxOptions, CycleOptions, GradientOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo, WaveOptions } from "./types.js";
+import { generateCycleFrames, generateInOutFrames, generateScrambleFrames, generateWaveFrames, hideText, toBox, toGradient, truncateText } from "./utils.js";
 
 export class Title {
     text: string;
@@ -45,6 +45,26 @@ export class Title {
      */
     hide(options: { from?: number, numChar?: number, hideChar?: string } = {}): string {
         return hideText(this.text, options);
+    }
+
+    /**
+     * @description Converts the text to a gradient.
+     * @param {GradientOptions} options - Options to control the gradient.
+     * @returns {string}
+     * @example "the lord of the rings" => "\u001b[38;2;118;183;166mthe\u001b[0m \u001b[38;2;118;183;171mlord\u001b[0m ..."
+     */
+    gradient(options: GradientOptions): string {
+        return toGradient(this.text, options);
+    }
+
+    /**
+     * @description Converts the text to a box.
+     * @param {BoxOptions} options - Options to control the box.
+     * @returns {string}
+     * @example "the lord of the rings" => "╭─────────────────────╮\n│ the lord of the rings │\n╰─────────────────────╯"
+     */
+    box(options: BoxOptions = {}): string {
+        return toBox(this.text, options);
     }
 
     /**
@@ -223,13 +243,12 @@ export class Title {
     }
 
     /**
-     * @description Converts the text to a gradient.
-     * @param {GradientOptions} options - Options to control the gradient.
-     * @returns {string}
-     * @example "the lord of the rings" => "\u001b[38;2;118;183;166mthe\u001b[0m \u001b[38;2;118;183;171mlord\u001b[0m ..."
+     * @description Creates waves in the text.
+     * @param {WaveOptions} options - Options to control the wave animation.
+     * @returns {string[]}
      */
-    gradient(options: GradientOptions): string {
-        return toGradient(this.text, options);
+    wave(options: WaveOptions = {}): string[] {
+        return generateWaveFrames(this.text, options);
     }
 
     /**
@@ -255,6 +274,8 @@ export class Title {
             frames = this.scramble(animationOptions as ScrambleOptions);
         } else if (animation === 'cycle') {
             frames = this.cycle(animationOptions as CycleOptions);
+        } else if (animation === 'wave') {
+            frames = this.wave(animationOptions as WaveOptions);
         }
 
         let currentIndex = 0;
