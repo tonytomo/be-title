@@ -4,6 +4,18 @@ export interface TextInfo {
     hasMinorWords: boolean;
 }
 
+export interface TruncateOptions {
+    max?: number;
+    suffix?: string;
+    preserveWords?: boolean;
+}
+
+export interface HideTextOptions {
+    from?: number;
+    numChar?: number;
+    hideChar?: string;
+}
+
 export interface PlayOptions {
     speedMs?: number;
     loop?: boolean;
@@ -41,6 +53,10 @@ export interface CycleOptions {
 
 export interface WaveOptions {
     wavesCount?: number
+}
+
+export interface FlickerOptions {
+    flickerCount?: number
 }
 
 export interface GradientOptions {

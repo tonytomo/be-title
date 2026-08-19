@@ -1,13 +1,29 @@
-import { BOX_STYLES, BoxOptions, CycleOptions, GradientOptions, InOutOptions, ScrambleOptions, WaveOptions } from "./types.js";
+import { BOX_STYLES, BoxOptions, CycleOptions, FlickerOptions, GradientOptions, HideTextOptions, InOutOptions, ScrambleOptions, TruncateOptions, WaveOptions } from "./types.js";
 
-export function truncateText(text: string, options?: { max?: number, suffix?: string }): string {
+export function truncateText(text: string, options?: TruncateOptions): string {
     const max = options?.max || 15;
     const suffix = options?.suffix || '...';
+    const preserveWords = options?.preserveWords || true;
     if (text.length <= max) return text;
-    return text.slice(0, max).trimEnd() + suffix;
+
+    const targetLen = max - suffix.length;
+    if (targetLen <= 0) return suffix.slice(0, max);
+
+    if (!preserveWords) {
+        return text.slice(0, targetLen) + suffix;
+    }
+
+    const trimmed = text.slice(0, targetLen);
+    const lastSpaceIndex = trimmed.lastIndexOf(" ");
+
+    if (lastSpaceIndex === -1) {
+        return trimmed + suffix;
+    }
+
+    return trimmed.slice(0, lastSpaceIndex).trimEnd() + suffix;
 }
 
-export function hideText(text: string, options?: { from?: number, numChar?: number, hideChar?: string }): string {
+export function hideText(text: string, options?: HideTextOptions): string {
     const from = options?.from || 0;
     const numChar = options?.numChar || 1;
     const hideChar = options?.hideChar || '•';
@@ -166,6 +182,22 @@ export function generateWaveFrames(text: string, options: WaveOptions = {}): str
             frames.push(frame);
         }
     }
+    return frames;
+}
+
+export function generateFlickerFrames(
+    text: string,
+    options: FlickerOptions = {}
+): string[] {
+    const { flickerCount = 6 } = options;
+    const frames: string[] = [];
+    const blank = " ".repeat(text.length);
+
+    for (let i = 0; i < flickerCount; i++) {
+        // Alternate between visible, blank, and partial dimming
+        frames.push(i % 2 === 0 ? blank : text);
+    }
+    frames.push(text); // Final stable state
     return frames;
 }
 

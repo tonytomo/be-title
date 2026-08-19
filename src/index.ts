@@ -1,6 +1,6 @@
 import { minorWords } from "./config.js";
-import { AnimationController, BoxOptions, CycleOptions, GradientOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo, WaveOptions } from "./types.js";
-import { generateCycleFrames, generateInOutFrames, generateScrambleFrames, generateWaveFrames, hideText, toBox, toGradient, truncateText } from "./utils.js";
+import { AnimationController, BoxOptions, CycleOptions, FlickerOptions, GradientOptions, HideTextOptions, InOutOptions, PlayOptions, ScrambleOptions, TextInfo, TruncateOptions, WaveOptions } from "./types.js";
+import { generateCycleFrames, generateFlickerFrames, generateInOutFrames, generateScrambleFrames, generateWaveFrames, hideText, toBox, toGradient, truncateText } from "./utils.js";
 
 export class Title {
     text: string;
@@ -30,7 +30,7 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "the lord of the..."
      */
-    truncate(options: { max?: number, suffix?: string } = {}): string {
+    truncate(options: TruncateOptions = {}): string {
         return truncateText(this.text, options);
     }
 
@@ -43,7 +43,7 @@ export class Title {
      * @returns {string}
      * @example "the lord of the rings" => "**********of the rings" (hide first 10 chars)
      */
-    hide(options: { from?: number, numChar?: number, hideChar?: string } = {}): string {
+    hide(options: HideTextOptions = {}): string {
         return hideText(this.text, options);
     }
 
@@ -252,6 +252,15 @@ export class Title {
     }
 
     /**
+     * @description Flickers the text.
+     * @param {FlickerOptions} options - Options to control the animation.
+     * @returns {string[]}
+     */
+    flicker(options: FlickerOptions = {}): string[] {
+        return generateFlickerFrames(this.text, options);
+    }
+
+    /**
      * @description Animates the text.
      * @param {PlayOptions} options - Options to control the animation.
      * @returns {AnimationController}
@@ -276,6 +285,8 @@ export class Title {
             frames = this.cycle(animationOptions as CycleOptions);
         } else if (animation === 'wave') {
             frames = this.wave(animationOptions as WaveOptions);
+        } else if (animation === 'flicker') {
+            frames = this.flicker(animationOptions as FlickerOptions);
         }
 
         let currentIndex = 0;
