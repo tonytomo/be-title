@@ -99,41 +99,95 @@
             </div>
         </hgroup>
 
+        <h2 class="col-span-2 border-t border-gray-400 pt-10 text-2xl font-medium">
+            Get Started
+        </h2>
+
         <hgroup class="col-span-2">
             <h2>Regular</h2>
+            <code><span class="var">const</span> text = <span class="type">new</span> <span class="obj">Title</span>("Star Wars: Episode V - The Empire Strikes Back");</code>
             <h3 id="regular"></h3>
-            <code><span class="var">const</span> text = <span class="type">new</span> <span class="obj">Title</span>("the lord of the rings");</code>
-        </hgroup>
-        <hgroup>
-            <h2>Truncate</h2>
-            <h3 id="truncate"></h3>
-            <code><span class="var">text</span>.<span class="func">truncate</span>({<span class="var">max</span>: 10, <span class="var">suffix</span>: "..."})</code>
-        </hgroup>
-        <hgroup>
-            <h2>Hide</h2>
-            <h3 id="hide"></h3>
-            <code><span class="var">text</span>.<span class="func">hide</span>({<span class="var">from</span>: 0, <span
-                    class="var">numChar</span>: 16, <span class="var">hideChar</span>: "*"})</code>
         </hgroup>
 
         <h2 class="col-span-2 border-t border-gray-400 pt-10 text-2xl font-medium">
-            Animation
+            Utilities
+        </h2>
+
+        <hgroup>
+            <h2>Stats</h2>
+            <code><span class="var">text</span>.<span class="func">stats</span>()</code>
+            <h3 id="stats"></h3>
+        </hgroup>
+        <hgroup>
+            <h2>Initials</h2>
+            <code><span class="var">text</span>.<span class="func">initials</span>()</code>
+            <h3 id="initials"></h3>
+        </hgroup>
+        <hgroup>
+            <h2>Slug</h2>
+            <code><span class="var">text</span>.<span class="func">slug</span>()</code>
+            <h3 id="slug"></h3>
+        </hgroup>
+        <hgroup>
+            <h2>Remove Chars</h2>
+            <code><span class="var">text</span>.<span class="func">remove</span>(["-", ":", "Episode", "V"])</code>
+            <h3 id="remove"></h3>
+        </hgroup>
+        <hgroup>
+            <h2>Truncate</h2>
+            <code><span class="var">text</span>.<span class="func">truncate</span>({<span class="var">max</span>: 32, <span class="var">suffix</span>: "..."})</code>
+            <h3 id="truncate"></h3>
+        </hgroup>
+        <hgroup>
+            <h2>Hide</h2>
+            <code><span class="var">text</span>.<span class="func">hide</span>({<span class="var">from</span>: 0, <span
+                class="var">numChar</span>: 16, <span class="var">hideChar</span>: "*"})</code>
+            <h3 id="hide"></h3>
+        </hgroup>
+
+        <h2 class="col-span-2 border-t border-gray-400 pt-10 text-2xl font-medium">
+            Animations
         </h2>
 
         <hgroup>
             <h2>Animation In and Out</h2>
-            <h3 id="inout"></h3>
             <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'inout' })</code>
+            <h3 id="inout"></h3>
         </hgroup>
         <hgroup>
             <h2>Animation Scramble</h2>
-            <h3 id="scramble"></h3>
             <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'scramble' })</code>
+            <h3 id="scramble"></h3>
+        </hgroup>
+        <hgroup>
+            <h2>Animation Flicker</h2>
+            <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'flicker' })</code>
+            <h3 id="flicker"></h3>
+        </hgroup>
+        <hgroup>
+            <h2>Animation Wave</h2>
+            <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'wave' })</code>
+            <h3 id="wave"></h3>
         </hgroup>
         <hgroup>
             <h2>Animation Cycle</h2>
-            <h3 id="cycle"></h3>
             <code><span class="var">text</span>.<span class="func">play</span>({ animation: 'cycle' })</code>
+            <h3 id="cycle"></h3>
+        </hgroup>
+
+        <h2 class="col-span-2 border-t border-gray-400 pt-10 text-2xl font-medium">
+            Effects
+        </h2>
+
+        <hgroup>
+            <h2>Gradient</h2>
+            <code><span class="var">text</span>.<span class="func">gradient</span>({<span class="var">fromColor</span>: [<span class="var">76</span>, <span class="var">255</span>, <span class="var">36</span>], <span class="var">toColor</span>: [<span class="var">87</span>, <span class="var">241</span>, <span class="var">255</span>], <span class="var">format</span>: 'html'})</code>
+            <h3 id="gradient"></h3>
+        </hgroup>
+        <hgroup>
+            <h2>Box</h2>
+            <code><span class="var">text</span>.<span class="func">box</span>({<span class="var">style</span>: 'rounded'})</code>
+            <pre id="box"></pre>
         </hgroup>
 
         <h2 class="col-span-2 border-t border-gray-400 pt-10 text-2xl font-medium">
@@ -142,84 +196,103 @@
 
         <hgroup>
             <h2>Uppercase</h2>
-            <h3 id="uppercase"></h3>
             <code><span class="var">text</span>.<span class="func">upper</span>()</code>
+            <h3 id="uppercase"></h3>
         </hgroup>
         <hgroup>
             <h2>Lowercase</h2>
-            <h3 id="lowercase"></h3>
             <code><span class="var">text</span>.<span class="func">lower</span>()</code>
+            <h3 id="lowercase"></h3>
         </hgroup>
         <hgroup>
             <h2>Sentence Case</h2>
-            <h3 id="sentence"></h3>
             <code><span class="var">text</span>.<span class="func">sentence</span>()</code>
+            <h3 id="sentence"></h3>
         </hgroup>
         <hgroup>
             <h2>Title Case</h2>
-            <h3 id="title"></h3>
             <code><span class="var">text</span>.<span class="func">title</span>()</code>
+            <h3 id="title"></h3>
         </hgroup>
         <hgroup>
             <h2>Capital Case</h2>
-            <h3 id="capital"></h3>
             <code><span class="var">text</span>.<span class="func">capital</span>()</code>
+            <h3 id="capital"></h3>
         </hgroup>
         <hgroup>
             <h2>Alternating Case</h2>
-            <h3 id="alternating"></h3>
             <code><span class="var">text</span>.<span class="func">alternating</span>()</code>
+            <h3 id="alternating"></h3>
         </hgroup>
         <hgroup>
             <h2>Spongebob Case</h2>
-            <h3 id="spongebob"></h3>
             <code><span class="var">text</span>.<span class="func">spongebob</span>()</code>
+            <h3 id="spongebob"></h3>
         </hgroup>
         <hgroup>
             <h2>Snake Case</h2>
-            <h3 id="snakecase"></h3>
             <code><span class="var">text</span>.<span class="func">snake</span>()</code>
+            <h3 id="snakecase"></h3>
         </hgroup>
         <hgroup>
             <h2>Kebab Case</h2>
-            <h3 id="kebabcase"></h3>
             <code><span class="var">text</span>.<span class="func">kebab</span>()</code>
+            <h3 id="kebabcase"></h3>
         </hgroup>
         <hgroup>
             <h2>Camel Case</h2>
-            <h3 id="camelcase"></h3>
             <code><span class="var">text</span>.<span class="func">camel</span>()</code>
+            <h3 id="camelcase"></h3>
         </hgroup>
         <hgroup>
             <h2>Pascal Case</h2>
-            <h3 id="pascalcase"></h3>
             <code><span class="var">text</span>.<span class="func">pascal</span>()</code>
+            <h3 id="pascalcase"></h3>
         </hgroup>
         <hgroup>
             <h2>Train Case</h2>
-            <h3 id="traincase"></h3>
             <code><span class="var">text</span>.<span class="func">train</span>()</code>
+            <h3 id="traincase"></h3>
         </hgroup>
         <hgroup>
             <h2>Constant Case</h2>
-            <h3 id="constantcase"></h3>
             <code><span class="var">text</span>.<span class="func">constant</span>()</code>
+            <h3 id="constantcase"></h3>
         </hgroup>
     </main>
 
     <script type="module">
         import { Title } from "./dist/index.js";
 
-        const text = new Title("the lord of the rings");
+        const text = new Title("Star Wars: Episode V - The Empire Strikes Back");
 
         const regularWrapper = document.getElementById("regular");
         regularWrapper.textContent = text.text;
 
+        const statsWrapper = document.getElementById("stats");
+        const stats = text.stats();
+        statsWrapper.textContent = `${stats.words} words, ${stats.characters} characters, ${stats.readingTimeText}`;
+
+        const initialsWrapper = document.getElementById("initials");
+        initialsWrapper.textContent = text.initials();
+
+        const slugWrapper = document.getElementById("slug");
+        slugWrapper.textContent = text.slug();
+
+        const removeWrapper = document.getElementById("remove");
+        removeWrapper.textContent = text.remove(["-", ":", "Episode", "V"]);
+
         const truncateWrapper = document.getElementById("truncate");
-        truncateWrapper.textContent = text.truncate({ max: 10, suffix: "..." });
+        truncateWrapper.textContent = text.truncate({ max: 32, suffix: "..." });
 
         const hideWrapper = document.getElementById("hide");
         hideWrapper.textContent = text.hide({ from: 0, numChar: 16, hideChar: '*' });
+
+        const gradientWrapper = document.getElementById("gradient");
+        gradientWrapper.innerHTML = text.gradient({ fromColor: [76, 255, 36], toColor: [87, 241, 255], format: 'html' });
+
+        const boxWrapper = document.getElementById("box");
+        boxWrapper.textContent = text.box({ style: 'double' });
 
         const uppercaseWrapper = document.getElementById("uppercase");
         uppercaseWrapper.textContent = text.upper();
@@ -260,10 +333,8 @@
         const constantWrapper = document.getElementById("constantcase");
         constantWrapper.textContent = text.constant();
 
-        const inoutWrapper = document.getElementById("inout");
-        const scrambleWrapper = document.getElementById("scramble");
-        const cycleWrapper = document.getElementById("cycle");
 
+        const inoutWrapper = document.getElementById("inout");
         text.play({
             speedMs: 100,
             loop: true,
@@ -275,6 +346,8 @@
                 blinkSpeed: 3
             }
         });
+
+        const scrambleWrapper = document.getElementById("scramble");
         text.play({
             speedMs: 100,
             loop: true,
@@ -286,6 +359,8 @@
                 iterationsPerChar: 2
             }
         });
+
+        const cycleWrapper = document.getElementById("cycle");
         text.play({
             speedMs: 100,
             loop: true,
@@ -295,6 +370,30 @@
             animationOptions: {
                 cursor: '█',
                 blinkSpeed: 3
+            }
+        });
+
+        const flickerWrapper = document.getElementById("flicker");
+        text.play({
+            speedMs: 100,
+            loop: true,
+            onTick: (frame) => (flickerWrapper.textContent = frame),
+            onComplete: () => console.log('Animation completed'),
+            animation: 'flicker',
+            animationOptions: {
+                flickerCount: 6
+            }
+        });
+
+        const waveWrapper = document.getElementById("wave");
+        text.play({
+            speedMs: 100,
+            loop: true,
+            onTick: (frame) => (waveWrapper.textContent = frame),
+            onComplete: () => console.log('Animation completed'),
+            animation: 'wave',
+            animationOptions: {
+                waveCount: 2
             }
         });
     </script>
