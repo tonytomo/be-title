@@ -19,9 +19,9 @@ import { Title } from "be-title";
 
 const title = new Title("the lord of the rings");
 
-console.log(title.toTitle()); // "The Lord of the Rings"
-console.log(title.toCamelCase()); // "theLordOfTheRings"
-console.log(title.toKebabCase()); // "the-lord-of-the-rings"
+console.log(title.title()); // "The Lord of the Rings"
+console.log(title.camel()); // "theLordOfTheRings"
+console.log(title.kebab()); // "the-lord-of-the-rings"
 ```
 
 ---
@@ -42,31 +42,83 @@ You can access or update the internal text value anytime:
 console.log(title.text); // "hello world"
 
 title.text = "new text here";
-console.log(title.toTitle()); // "New Text Here"
+console.log(title.title()); // "New Text Here"
 ```
 
 ---
 
 ### Utilities
 
-#### truncateText(text, options)
+#### stats()
+
+Returns stats about the text.
+
+```typescript
+title.stats();
+```
+
+#### initials()
+
+Returns initials of the text.
+
+```typescript
+title.initials();
+```
+
+#### slug()
+
+Returns slug of the text.
+
+```typescript
+title.slug();
+```
+
+#### truncate(text, options)
 
 Truncates a string to a specified maximum length, optionally appending a suffix.
 
 ```typescript
-truncateText("hello world"); // "hello world"
-truncateText("hello world", { max: 5 }); // "hello..."
-truncateText("hello world", { max: 5, suffix: "->" }); // "hello->"
+title.truncate({ max: 32, suffix: "..." });
 ```
 
-#### hideText(text, options)
+#### hide(text, options)
 
 Replaces a portion of the string with hide characters.
 
 ```typescript
-hideText("hello world"); // "hello*****d"
-hideText("hello world", { from: 5, numChar: 3 }); // "hello***rld"
-hideText("hello world", { from: 5, numChar: 5, hideChar: "*" }); // "hello*****"
+title.hide({ from: 0, numChar: 16, hideChar: "*" });
+```
+
+#### remove(text, options)
+
+Removes specific characters from the text.
+
+```typescript
+title.remove(["-", ":", "Episode", "V"]);
+```
+
+---
+
+### Effects
+
+#### gradient()
+
+Creates a gradient text with different colors.
+
+```typescript
+title.gradient({
+  fromColor: [76, 255, 36],
+  toColor: [87, 241, 255],
+  format: "html",
+});
+```
+
+#### box(options)
+
+Decorates the text with a box.
+
+```typescript
+title.box({ style: "rounded" });
 ```
 
 ---
@@ -102,6 +154,8 @@ Play animations with title text.
 - **type**: `'letter'` | `'word'`
 - **reversed**: `true` | `false`
 - **out**: `true` | `false`
+- **cursor**: `string`
+- **blinkSpeed**: `number`
 
 #### `scramble(options)`
 
@@ -112,6 +166,15 @@ Play animations with title text.
 
 - **pauseFrames**: `number`
 - **cursor**: `string`
+- **blinkSpeed**: `number`
+
+#### `flicker(options)`
+
+- **flickerCount**: `number`
+
+#### `wave(options)`
+
+- **wavesCount**: `number`
 
 ---
 

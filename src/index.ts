@@ -261,7 +261,6 @@ export class Title {
 
     /**
      * @description Cycles through a list of words.
-     * @param {string[]} words - The list of words to cycle through.
      * @param {CycleOptions} options - Options to control the animation.
      * @returns {string[]}
      */
